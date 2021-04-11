@@ -1,0 +1,29 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescript.tsx",
+    "json",
+    "javascriptreact",
+    "typescriptreact",
+    "css",
+    "markdown",
+    "less",
+    "sass",
+    "scss",
+    "html",
+    "vue"
+  ],
+  "eslint.filetypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact",
+    "typescript.tsx",
+    "vue"
+  ],
+  "typescript.validate.enable": false,
+  "coc.preferences.diagnostic.virtualText": true,
+  "prettier.disableLanguages": [],
+  "eslint.autoFixOnSave": true
+}
