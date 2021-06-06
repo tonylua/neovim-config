@@ -43,6 +43,12 @@ sed -i "" 's/jad-/jadx-/g' `grep "jad-" -rl --exclude="**/*.spec.js" src/compone
 zip -vr my_config.zip ~/.config/ -x "*.DS_Store" -x '*node_modules*'
 ```
 
+### 自动排列“启动台”图标
+
+```
+defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
+```
+
 --------------------------------------------------------------------------
 
 ## 3. NeoVim 
