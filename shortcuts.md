@@ -4,7 +4,7 @@
 
 - 开发者模式，Command+Shift+P
 
---------------------------------------------------------------------------
+---
 
 ## 2. 终端
 
@@ -19,13 +19,13 @@
 - `&:` 确认并退出整个窗口
 - 方向键：切换子窗口
 
-### 搜索替换 
+### 搜索替换
 
 > https://alexharv074.github.io/2019/04/16/a-sed-tutorial-and-reference.html#command-line-options
 
 - mac 下 -i 后面加 ""
 - sed -i "s/查找字段/替换字段/gi" `grep 查找字段 -rl 路径`
-- grep '正则内容' -rn（或 -rl） src/**/* | sort | uniq
+- grep '正则内容' -rn（或 -rl） src/\*_/_ | sort | uniq
 - sed -i 's/查找字段/替换字段/g' `grep "deletable" -rl src/**/* | sort | uniq`
 - 排除用 `--exclude`
 
@@ -45,13 +45,19 @@ zip -vr my_config.zip ~/.config/ -x "*.DS_Store" -x '*node_modules*'
 
 ### 刷新 dns
 
-- sudo killall -HUP mDNSResponder 
+- sudo killall -HUP mDNSResponder
 
---------------------------------------------------------------------------
+### 自动排列“启动台”图标
 
-## 3. NeoVim 
+```
+defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
+```
 
-### 配置文件 
+---
+
+## 3. NeoVim
+
+### 配置文件
 
 - `~/.config/nvim/init.vim`
 - `~/.config/nvim/coc-settings.json`
@@ -83,11 +89,11 @@ nvim +PlugInstall
 
 ### 分割页切换和集成终端：
 
-- `Ctrl + N`: 打开终端，多页签切换到终端时需要用i和ESC切换其输入状态
+- `Ctrl + N`: 打开终端，多页签切换到终端时需要用 i 和 ESC 切换其输入状态
 - `Alt + h\j\k\l`: 在文件树和分割页间切换焦点
 - `:res+行数`: 改变分割页的尺寸
 - `:vertical resize 列数`: 改变竖向分割页尺寸
-- `:quitall`: 多个tab时一次性退出vim
+- `:quitall`: 多个 tab 时一次性退出 vim
 
 ### 文件搜索：
 
@@ -108,6 +114,7 @@ find **/* -name "element-icons.ttf"
 - 交互式替换: `:%s/old/new/gc` ，y 是 n 跳过 a 所有
 
 ### 清除搜索高亮
+
 - `:noh`
 
 ### 大小写转化
@@ -119,14 +126,14 @@ find **/* -name "element-icons.ttf"
 
 ### 多行插入同样字符
 
-- ctrl+v进入列选择
-- 按大写I进入插入模式
+- ctrl+v 进入列选择
+- 按大写 I 进入插入模式
 - 输入要插入的字符
-- 按Esc键退出
+- 按 Esc 键退出
 
 ### 多行行尾插入
 
-- ctrl+v进入列选择
+- ctrl+v 进入列选择
 - 依次输入 G $ A
 - 同上
 
@@ -138,8 +145,8 @@ find **/* -name "element-icons.ttf"
 ### 跳转到指定行
 
 - `ngg`
-- `nG` （跳转到文件第n行，无需回车）
-- `:n` （跳转到文件第n行，需要回车）
+- `nG` （跳转到文件第 n 行，无需回车）
+- `:n` （跳转到文件第 n 行，需要回车）
 
 ### 退出 recording 模式
 
@@ -181,7 +188,7 @@ git config --global mergetool.vimdiff.path nvim
 - 先 ] 后 c 跳转到下一个差异点：`]c` ，反向跳转是：`[c`
 - 都改完 `:wqa` 退出自动切到下一个文件
 
---------------------------------------------------------------------------
+---
 
 ## 4. Git
 
@@ -194,7 +201,7 @@ git config --global mergetool.vimdiff.path nvim
 - git stash
 - git stash pop
 
-### 查看某次commit并排除文件
+### 查看某次 commit 并排除文件
 
 ```
 git show --pretty <hash> -- . ':(exclude)package-lock.json'
@@ -205,7 +212,7 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
 
 - git clean -fd
 
---------------------------------------------------------------------------
+---
 
 ## 5. Nginx
 
@@ -217,7 +224,7 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
      proxy_pass   http://localhost:8080;
  }
 
- #绝对匹配一个路径 /info    
+ #绝对匹配一个路径 /info
  #location ^~ /info/ {
  #    proxy_pass   http://localhost:8080;
  #}
