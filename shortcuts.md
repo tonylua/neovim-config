@@ -43,6 +43,10 @@ sed -i "" 's/jad-/jadx-/g' `grep "jad-" -rl --exclude="**/*.spec.js" src/compone
 zip -vr my_config.zip ~/.config/ -x "*.DS_Store" -x '*node_modules*'
 ```
 
+### 刷新 dns
+
+- sudo killall -HUP mDNSResponder 
+
 --------------------------------------------------------------------------
 
 ## 3. NeoVim 
