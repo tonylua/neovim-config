@@ -212,6 +212,12 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
 
 - git clean -fd
 
+### 分支改名
+
+- 本地分支重命名 `git branch -m old new`
+- 删除远程分支 `git push origin :远程分支名`
+- 将本地分支推送到远程分支 `git push origin 本地分支名:远程分支名`
+
 ---
 
 ## 5. Nginx
