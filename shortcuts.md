@@ -49,6 +49,25 @@ zip -vr my_config.zip ~/.config/ -x "*.DS_Store" -x '*node_modules*'
 defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 ```
 
+### 逐级查看磁盘占用空间情况
+
+```
+sudo du -sh *
+...
+sudo du -sh ./Movies/DaVinci\ Resolve/CacheClip/*
+```
+
+### 删除 DaVinci 缓存
+
+```
+rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
+```
+
+### 刷新 dns
+
+- sudo killall -HUP mDNSResponder
+- sudo dscacheutil -flushcache
+
 --------------------------------------------------------------------------
 
 ## 3. NeoVim 
