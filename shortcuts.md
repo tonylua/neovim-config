@@ -55,6 +55,8 @@ defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 
 ### 禁用 chrome 前后翻页手势
 
+[firefox](https://support.mozilla.org/en-US/questions/1003526)
+
 ```
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
 ```
