@@ -53,6 +53,12 @@ zip -vr my_config.zip ~/.config/ -x "*.DS_Store" -x '*node_modules*'
 defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 ```
 
+### 禁用 chrome 前后翻页手势
+
+```
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+```
+
 ### 逐级查看磁盘占用空间情况
 
 ```
