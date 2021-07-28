@@ -80,6 +80,14 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 - sudo killall -HUP mDNSResponder
 - sudo dscacheutil -flushcache
 
+### NVM 下载速度慢
+
+命令行输入
+
+```
+NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
+```
+
 ## 3. NeoVim
 
 ### 配置文件
@@ -133,6 +141,8 @@ find **/* -name "element-icons.ttf"
 ```
 
 ### 搜索替换
+
+> http://vimregex.com/
 
 - `:Ag 文本内容`: 搜索项目内包含文本内容的文件，快捷键同文件搜索
 - vim 中的非贪婪模式，不用 ？而是加 \{-}
@@ -213,6 +223,10 @@ git config --global mergetool.vimdiff.path nvim
 - 先 ] 后 c 跳转到下一个差异点：`]c` ，反向跳转是：`[c`
 - 都改完 `:wqa` 退出自动切到下一个文件
 
+### 对比文件
+
+- nvim -d file1 file2
+
 ---
 
 ## 4. Git
@@ -243,11 +257,24 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
 - 删除远程分支 `git push origin :远程分支名`
 - 将本地分支推送到远程分支 `git push origin 本地分支名:远程分支名`
 
+### 打 tag
+
+- git tag -a v1.4 -m "my version 1.4"
+
+### npm 发布
+
+- npm login 或 npm adduser 登录
+- npm version x.x.x 或手动改 package.json
+- npm publish
+- npm home [name] 打开项目主页查看
+
 ---
 
 ## 5. Nginx
 
 ### 匹配多个路径
+
+> https://nginx.viraptor.info/
 
 ```
 #匹配/node /info /search
