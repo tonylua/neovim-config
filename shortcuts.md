@@ -251,6 +251,10 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
 
 - git clean -fd
 
+### 从其它分支提取指定文件
+
+- git checkout [branch] -- [file name]
+
 ### 分支改名
 
 - 本地分支重命名 `git branch -m old new`
