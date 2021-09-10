@@ -248,6 +248,10 @@ git config --global mergetool.vimdiff.path nvim
 
 - 将 github.com 换为 github.com.cnpmjs.org 即可实现加速
 
+### nvm 加速
+
+- NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
+
 ### git 暂存
 
 - git stash
