@@ -33,6 +33,11 @@
 sed -i "" 's/jad-/jadx-/g' `grep "jad-" -rl --exclude="**/*.spec.js" src/components/Cascader/**/*`
 ```
 
+### 排除某些文件后删除
+
+- find src/views/Reports/create/* -type 'f' | grep -v 'index.vue' | xargs rm
+- find . -type 'd' | grep -v "NameToExclude" | xargs rmdir
+
 ### 查看占用端口
 
 - `lsof -i:端口号`
@@ -80,13 +85,17 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 - sudo killall -HUP mDNSResponder
 - sudo dscacheutil -flushcache
 
-### NVM 下载速度慢
+### 命令行光标移动
 
-命令行输入
+要移动到当前行的开头，使用 [Ctrl][A]
+要移动到当前行的结尾，使用 [Ctrl][E]
+要在当前行从光标位置向前移动一个单词，使用 [Alt][F] 或 [Option][←]
+要在当前行从光标位置向前移动一个单词，使用 [Alt][B] 或 [Option][→]
 
-```
-NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
-```
+使用 [Ctrl][K] 可以清除光标之后当前行中的字符
+[Ctrl][U] 在 bash 和 zsh 则有所区别，前者会清除光标之前的字符，而后者则会清除整行
+要清除光标之前的一个单词，使用 [Ctrl][W]
+要撤销之前的若干次  [Ctrl][W]，使用 [Ctrl][Y]
 
 ## 3. NeoVim
 
@@ -147,6 +156,10 @@ find **/* -name "element-icons.ttf"
 - `:Ag 文本内容`: 搜索项目内包含文本内容的文件，快捷键同文件搜索
 - vim 中的非贪婪模式，不用 ？而是加 \{-}
 - 交互式替换: `:%s/old/new/gc` ，y 是 n 跳过 a 所有
+
+### 批量复制搜索结果
+
+- :g/PATTERN/yank A
 
 ### 清除搜索高亮
 
@@ -251,6 +264,10 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
 
 - git clean -fd
 
+### git 删除远端分支
+
+- git push origin --delete ydq
+
 ### 从其它分支提取指定文件
 
 - git checkout [branch] -- [file name]
@@ -264,13 +281,6 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
 ### 打 tag
 
 - git tag -a v1.4 -m "my version 1.4"
-
-### npm 发布
-
-- npm login 或 npm adduser 登录
-- npm version x.x.x 或手动改 package.json
-- npm publish
-- npm home [name] 打开项目主页查看
 
 ---
 
@@ -305,3 +315,43 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
 
 - ps -ef | grep nginx
 - kill -QUIT 主进程（master）号
+
+## 6. npm
+
+### npm 发布
+
+- npm login 或 npm adduser 登录
+- npm version x.x.x 或手动改 package.json
+- npm publish
+- npm home [name] 打开项目主页查看
+
+### npm 使用本地包调试
+
+- 在组件项目根目录 npm link
+- 在业务项目根目录 npm link <组件包名>
+
+解除：
+
+- 在业务项目根目录 npm unlink --no-save <组件包名>
+    + 如果提示没权限则尝试 sudo rm -rf node_modules/<组件包或域目录>
+- 在组件项目根目录 npm unlink
+
+### NVM 下载速度慢
+
+命令行输入
+
+```
+NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
+```
+
+### NVM 设置默认版本
+
+```
+nvm alias default 10
+```
+
+### 查看某个包版本信息
+
+```
+npm view xxx versions
+```
