@@ -27,7 +27,7 @@
 - sed -i "s/查找字段/替换字段/gi" `grep 查找字段 -rl 路径`
 - grep '正则内容' -rn（或 -rl） src/\*_/_ | sort | uniq
 - sed -i 's/查找字段/替换字段/g' `grep "deletable" -rl src/**/* | sort | uniq`
-- 排除用 `--exclude`
+- 排除用 `--exclude` 或 `--exclude-dir`
 
 ```
 sed -i "" 's/jad-/jadx-/g' `grep "jad-" -rl --exclude="**/*.spec.js" src/components/Cascader/**/*`
@@ -96,6 +96,10 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 [Ctrl][U] 在 bash 和 zsh 则有所区别，前者会清除光标之前的字符，而后者则会清除整行
 要清除光标之前的一个单词，使用 [Ctrl][W]
 要撤销之前的若干次  [Ctrl][W]，使用 [Ctrl][Y]
+
+### 在 Mac 上输入中文标点符号和特殊字符
+
+- Option-Shift-B
 
 ## 3. NeoVim
 
@@ -262,6 +266,9 @@ git config --global mergetool.vimdiff.path nvim
 ```
 git show --pretty <hash> -- . ':(exclude)package-lock.json'
 git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components/**/*'
+git diff 12eefe9159f --author weimanqing ':(exclude)package-lock.json' src/components/CustomReport/ > _change.log 
+git diff 12eefe9159f '@{2 days ago}' ':(exclude)package-lock.json' src/components/CustomReport/
+git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/components/CustomReport/
 ```
 
 ### git 删除 untracked files
@@ -285,6 +292,10 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
 ### 打 tag
 
 - git tag -a v1.4 -m "my version 1.4"
+
+### 查看仓库信息
+
+- `git remote -v` 或 `git remote show origin`
 
 ---
 

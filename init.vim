@@ -5,12 +5,13 @@ call plug#begin("~/.vim/plugged")
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
   Plug 'preservim/nerdtree'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'unkiwii/vim-nerdtree-sync'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'preservim/nerdcommenter'
-  Plug 'ryanoasis/vim-devicons'
   Plug 'zivyangll/git-blame.vim'
   Plug 'heavenshell/vim-jsdoc', { 
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
@@ -70,6 +71,7 @@ syntax enable
 colorscheme dracula
 
 "配置目录树
+let g:nerdtree_sync_cursorline = 1
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
