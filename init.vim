@@ -11,7 +11,9 @@ call plug#begin("~/.vim/plugged")
   Plug 'junegunn/fzf.vim'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'preservim/nerdcommenter'
+  " Plug 'preservim/nerdcommenter'
+  Plug 'tomtom/tcomment_vim'
+  Plug 'psliwka/vim-smoothie'
   Plug 'zivyangll/git-blame.vim'
   Plug 'heavenshell/vim-jsdoc', { 
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
@@ -119,23 +121,23 @@ let g:prettier#config#print_width = 100
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "配置注释
-let g:NERDSpaceDelims = 2
-let g:ft = ''
-function! NERDCommenter_before()
-  if &ft == 'vue'
-    let g:ft = 'vue'
-    let stack = synstack(line('.'), col('.'))
-    if len(stack) > 0
-      let syn = synIDattr((stack)[0], 'name')
-      if len(syn) > 0
-        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-      endif
-    endif
-  endif
-endfunction
-function! NERDCommenter_after()
-  if g:ft == 'vue'
-    setf vue
-    let g:ft = ''
-  endif
-endfunction
+" let g:NERDSpaceDelims = 2
+" let g:ft = ''
+" function! NERDCommenter_before()
+  " if &ft == 'vue'
+    " let g:ft = 'vue'
+    " let stack = synstack(line('.'), col('.'))
+    " if len(stack) > 0
+      " let syn = synIDattr((stack)[0], 'name')
+      " if len(syn) > 0
+        " exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+      " endif
+    " endif
+  " endif
+" endfunction
+" function! NERDCommenter_after()
+  " if g:ft == 'vue'
+    " setf vue
+    " let g:ft = ''
+  " endif
+" endfunction

@@ -8,6 +8,10 @@
 
 ## 2. 终端
 
+#### 调出 emoji 表情选择
+
+- control + command + space
+
 ### Tmux 常用命令
 
 > 先输入命令 tmux，按 Ctrl+b 激活控制台；此时以下按键生效）：
@@ -101,9 +105,13 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 
 - Option-Shift-B
 
+---
+
 ## 3. NeoVim
 
 ### 配置文件
+
+> https://github.com/tonylua/neovim-config
 
 - `~/.config/nvim/init.vim`
 - `~/.config/nvim/coc-settings.json`
@@ -244,6 +252,18 @@ git config --global mergetool.vimdiff.path nvim
 
 - nvim -d file1 file2
 
+### 基于 tcomment_vim 的注释
+
+In normal mode:
+
+- gc{motion} 指定方向，motion即hjkl和↑（向上的行）↓（向下的行）
+- gc<Count>c{motion} 指定数量的 
+- gcc 当前行
+
+In visual mode:
+
+- gc 
+
 ---
 
 ## 4. Git
@@ -279,6 +299,10 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 
 - git push origin --delete ydq
 
+### 添加一个remote url
+
+- git remote set-url --add origin <git>
+
 ### 从其它分支提取指定文件
 
 - git checkout [branch] -- [file name]
@@ -296,6 +320,10 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 ### 查看仓库信息
 
 - `git remote -v` 或 `git remote show origin`
+
+### 查看已经删除的文件历史
+
+- git log --all -- <路径>
 
 ---
 
