@@ -194,8 +194,8 @@ find **/* -name "element-icons.ttf"
 ### 多行行尾插入
 
 - ctrl+v 进入列选择
-- 依次输入 G $ A
-- 同上
+- 选择若干列之后输入`:`，命令行中会自动出现 `:'<,'>`
+- 输入 `norm A<要输入的字符>`
 
 ### 修正缩进
 
@@ -295,13 +295,15 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 
 - git clean -fd
 
-### git 删除远端分支
+### git 删除分支
 
-- git push origin --delete ydq
+- 本地 `git branch -d <分支>`
+- 远端 `git push origin --delete <分支>`
 
-### 添加一个remote url
+### 添加删除remote url
 
-- git remote set-url --add origin <git>
+- `git remote set-url --add origin <git>`
+- `git remote set-url --delete origin <git>`
 
 ### 从其它分支提取指定文件
 
