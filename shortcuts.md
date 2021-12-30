@@ -123,7 +123,8 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 ```
 nvim +PlugInstall
 
-# 安装后重启 nvim，检查安装结果
+安装后重启 nvim，检查安装结果
+
 :checkhealth
 ```
 
@@ -159,6 +160,7 @@ nvim +PlugInstall
 
 ```
 find **/* -name "element-icons.ttf"
+find src/**/* -name "*.stories.js" | sort -u
 ```
 
 ### 搜索替换
