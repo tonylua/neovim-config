@@ -4,6 +4,12 @@
 
 - 开发者模式，Command+Shift+P
 
+### 正则过滤请求
+
+```
+regexp:jd\.com\/(?!authadmin)
+```
+
 ---
 
 ## 2. 终端
@@ -35,12 +41,23 @@
 
 ```
 sed -i "" 's/jad-/jadx-/g' `grep "jad-" -rl --exclude="**/*.spec.js" src/components/Cascader/**/*`
+grep "-123px" -rn src/**/* --exclude 'src/assets/common2.0'
 ```
 
 ### 排除某些文件后删除
 
 - find src/views/Reports/create/* -type 'f' | grep -v 'index.vue' | xargs rm
 - find . -type 'd' | grep -v "NameToExclude" | xargs rmdir
+
+### 统计文件个数
+
+- ls -l dir/*.js | wc -l 
+
+### 统计文件体积
+
+- du -hc dist/custom-report/assets/js/*.js 
+- c 可读
+- h 总数,不带的话结果除2
 
 ### 查看占用端口
 
@@ -329,6 +346,10 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 
 - git log --all -- <路径>
 
+### 按时间筛选 log
+
+- git log --since="Wed Jan 8 20:03:47 2020 +0800" src/*.md src/v3/**/*
+
 ---
 
 ## 5. Nginx
@@ -402,3 +423,29 @@ nvm alias default 10
 ```
 npm view xxx versions
 ```
+
+---
+
+## 6. mongodb
+
+### 命令行连接到数据库
+
+```
+mongo -host mongodb://xxx
+
+# 查看所有数据库
+show dbs
+
+# 使用某数据库
+use XXX
+
+# 查看表
+show collections
+
+# 查找记录
+db.getCollection('collectionXXX').find({key1: value1, ...})
+
+# 查找记录并过滤结果字段 1 包含，0 排除
+db.getCollection('collectionXXX').find({}, {col1: 1, col2: 1})
+```
+
