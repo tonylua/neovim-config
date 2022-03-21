@@ -185,8 +185,31 @@ find src/**/* -name "*.stories.js" | sort -u
 > http://vimregex.com/
 
 - `:Ag 文本内容`: 搜索项目内包含文本内容的文件，快捷键同文件搜索
-- vim 中的非贪婪模式，不用 ？而是加 \{-}
+- vim 中的非贪婪(non-greedy)模式，不用 `*` 而是 `\{-}`
+- vim uses `\_.` to include the newline character to the common `.`
 - 交互式替换: `:%s/old/new/gc` ，y 是 n 跳过 a 所有
+
+例：匹配 buckets 数组部分
+
+```json
+"pin": {
+	"doc_count_error_upper_bound": 0,
+	"sum_other_doc_count": 0,
+	"buckets": [
+		{ "key": "jd_CrOHlwrQEZJa", "doc_count": 216 },
+		{ "key": "oppozydt1", "doc_count": 185 },
+		{ "key": "jd_71d50d4d544f6", "doc_count": 167 },
+	]
+}
+```
+
+
+```
+/buckets\":\s\[\(\n\_.\{-}\)\]
+
+# 防止 buckets 数组嵌套
+/buckets\":\s\[\(\n\_[^\[]\{-}\)\]
+```
 
 ### 批量复制搜索结果
 
