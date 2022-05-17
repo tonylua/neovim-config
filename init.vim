@@ -2,8 +2,16 @@ call plug#begin("~/.vim/plugged")
   Plug 'dracula/vim'
   Plug 'posva/vim-vue'
   Plug 'sheerun/vim-polyglot'
-  Plug 'leafgarland/typescript-vim'
-  Plug 'peitalin/vim-jsx-typescript'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  Plug 'nvim-lua/plenary.nvim'
+  " Plug 'leafgarland/typescript-vim'
+  " Plug 'peitalin/vim-jsx-typescript'
   Plug 'preservim/nerdtree'
   Plug 'ryanoasis/vim-devicons'
   Plug 'unkiwii/vim-nerdtree-sync'
@@ -11,7 +19,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'junegunn/fzf.vim'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  " Plug 'preservim/nerdcommenter'
   Plug 'tomtom/tcomment_vim'
   Plug 'psliwka/vim-smoothie'
   Plug 'zivyangll/git-blame.vim'
@@ -21,24 +28,13 @@ call plug#begin("~/.vim/plugged")
   \}
 call plug#end()
 
+lua require("lsp-config")
+
 " 自动保存session
 fu! SaveSess()
     execute 'mksession! ' . getcwd() . '/.session.vim'
 endfunction
-" fu! RestoreSess()
-" if filereadable(getcwd() . '/.session.vim')
-    " execute 'so ' . getcwd() . '/.session.vim'
-    " if bufexists(1)
-        " for l in range(1, bufnr('$'))
-            " if bufwinnr(l) == -1
-                " exec 'sbuffer ' . l
-            " endif
-        " endfor
-    " endif
-" endif
-" endfunction
 autocmd VimLeave * call SaveSess()
-" autocmd VimEnter * nested call RestoreSess()
 
 " git blame
 nnoremap <Leader>g:<C-u>call gitblame#echo()<CR>
@@ -119,25 +115,3 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 "配置Prettier
 let g:prettier#config#print_width = 100
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-"配置注释
-" let g:NERDSpaceDelims = 2
-" let g:ft = ''
-" function! NERDCommenter_before()
-  " if &ft == 'vue'
-    " let g:ft = 'vue'
-    " let stack = synstack(line('.'), col('.'))
-    " if len(stack) > 0
-      " let syn = synIDattr((stack)[0], 'name')
-      " if len(syn) > 0
-        " exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-      " endif
-    " endif
-  " endif
-" endfunction
-" function! NERDCommenter_after()
-  " if g:ft == 'vue'
-    " setf vue
-    " let g:ft = ''
-  " endif
-" endfunction
