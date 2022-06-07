@@ -46,18 +46,18 @@ grep "-123px" -rn src/**/* --exclude 'src/assets/common2.0'
 
 ### 排除某些文件后删除
 
-- find src/views/Reports/create/* -type 'f' | grep -v 'index.vue' | xargs rm
+- find src/views/Reports/create/\* -type 'f' | grep -v 'index.vue' | xargs rm
 - find . -type 'd' | grep -v "NameToExclude" | xargs rmdir
 
 ### 统计文件个数
 
-- ls -l dir/*.js | wc -l 
+- ls -l dir/\*.js | wc -l
 
 ### 统计文件体积
 
-- du -hc dist/custom-report/assets/js/*.js 
+- du -hc dist/custom-report/assets/js/\*.js
 - c 可读
-- h 总数,不带的话结果除2
+- h 总数,不带的话结果除 2
 
 ### 查看占用端口
 
@@ -108,15 +108,15 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 
 ### 命令行光标移动
 
-要移动到当前行的开头，使用 [Ctrl][A]
-要移动到当前行的结尾，使用 [Ctrl][E]
-要在当前行从光标位置向前移动一个单词，使用 [Alt][F] 或 [Option][←]
-要在当前行从光标位置向前移动一个单词，使用 [Alt][B] 或 [Option][→]
+要移动到当前行的开头，使用 [Ctrl][a]
+要移动到当前行的结尾，使用 [Ctrl][e]
+要在当前行从光标位置向前移动一个单词，使用 [Alt][f] 或 [Option][←]
+要在当前行从光标位置向前移动一个单词，使用 [Alt][b] 或 [Option][→]
 
-使用 [Ctrl][K] 可以清除光标之后当前行中的字符
-[Ctrl][U] 在 bash 和 zsh 则有所区别，前者会清除光标之前的字符，而后者则会清除整行
-要清除光标之前的一个单词，使用 [Ctrl][W]
-要撤销之前的若干次  [Ctrl][W]，使用 [Ctrl][Y]
+使用 [Ctrl][k] 可以清除光标之后当前行中的字符
+[Ctrl][u] 在 bash 和 zsh 则有所区别，前者会清除光标之前的字符，而后者则会清除整行
+要清除光标之前的一个单词，使用 [Ctrl][w]
+要撤销之前的若干次 [Ctrl][w]，使用 [Ctrl][y]
 
 ### 在 Mac 上输入中文标点符号和特殊字符
 
@@ -202,7 +202,6 @@ find src/**/* -name "*.stories.js" | sort -u
 	]
 }
 ```
-
 
 ```
 /buckets\":\s\[\(\n\_.\{-}\)\]
@@ -298,13 +297,13 @@ git config --global mergetool.vimdiff.path nvim
 
 In normal mode:
 
-- gc{motion} 指定方向，motion即hjkl和↑（向上的行）↓（向下的行）
-- gc<Count>c{motion} 指定数量的 
+- gc{motion} 指定方向，motion 即 hjkl 和 ↑（向上的行）↓（向下的行）
+- gc<Count>c{motion} 指定数量的
 - gcc 当前行
 
 In visual mode:
 
-- gc 
+- gc
 
 ---
 
@@ -314,9 +313,10 @@ In visual mode:
 
 - 将 github.com 换为 github.com.cnpmjs.org 即可实现加速
 
-### nvm 加速
+### nvm/npm 加速
 
 - NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
+- npm config set registry https://registry.npmmirror.com
 
 ### git 暂存
 
@@ -328,7 +328,7 @@ In visual mode:
 ```
 git show --pretty <hash> -- . ':(exclude)package-lock.json'
 git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components/**/*'
-git diff 12eefe9159f --author weimanqing ':(exclude)package-lock.json' src/components/CustomReport/ > _change.log 
+git diff 12eefe9159f --author weimanqing ':(exclude)package-lock.json' src/components/CustomReport/ > _change.log
 git diff 12eefe9159f '@{2 days ago}' ':(exclude)package-lock.json' src/components/CustomReport/
 git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/components/CustomReport/
 ```
@@ -342,7 +342,7 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 - 本地 `git branch -d <分支>`
 - 远端 `git push origin --delete <分支>`
 
-### 添加删除remote url
+### 添加删除 remote url
 
 - `git remote set-url --add origin <git>`
 - `git remote set-url --delete origin <git>`
@@ -371,7 +371,7 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 
 ### 按时间筛选 log
 
-- git log --since="Wed Jan 8 20:03:47 2020 +0800" src/*.md src/v3/**/*
+- git log --since="Wed Jan 8 20:03:47 2020 +0800" src/_.md src/v3/\*\*/_
 
 ---
 
@@ -424,7 +424,7 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 解除：
 
 - 在业务项目根目录 npm unlink --no-save <组件包名>
-    + 如果提示没权限则尝试 sudo rm -rf node_modules/<组件包或域目录>
+  - 如果提示没权限则尝试 sudo rm -rf node_modules/<组件包或域目录>
 - 在组件项目根目录 npm unlink
 
 ### NVM 下载速度慢
@@ -471,4 +471,3 @@ db.getCollection('collectionXXX').find({key1: value1, ...})
 # 查找记录并过滤结果字段 1 包含，0 排除
 db.getCollection('collectionXXX').find({}, {col1: 1, col2: 1})
 ```
-
