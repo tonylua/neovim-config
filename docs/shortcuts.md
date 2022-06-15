@@ -305,6 +305,10 @@ In visual mode:
 
 - gc
 
+### 打开文件
+
+- `:edit FILEPAT`
+
 ---
 
 ## 4. Git

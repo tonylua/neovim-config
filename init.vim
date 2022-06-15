@@ -26,6 +26,7 @@ call plug#begin("~/.vim/plugged")
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
   \ 'do': 'make install'
   \}
+  Plug 'ap/vim-css-color'
 call plug#end()
 
 lua require("lsp-config")
@@ -59,10 +60,12 @@ if has('mouse')
   set mouse=r
 endif
 
-let mapleader=";"
-nmap <Leader>a ggVG
-vnoremap <Leader>y :w !pbcopy<CR><CR>
-nmap <Leader>p :r !pbpaste<CR><CR>
+" 复制粘贴到系统
+" let mapleader=";"
+" nmap <Leader>a ggVG
+" vnoremap <Leader>y :w !pbcopy<CR><CR>
+" nmap <Leader>p :r !pbpaste<CR><CR>
+set clipboard+=unnamedplus
   
 "配置颜色
 syntax enable
