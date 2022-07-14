@@ -14,9 +14,13 @@ regexp:jd\.com\/(?!authadmin)
 
 ## 2. 终端
 
-#### 调出 emoji 表情选择
+### 调出 emoji 表情选择
 
 - control + command + space
+
+### finder 显示隐藏文件
+
+- command + shift + .
 
 ### Tmux 常用命令
 
@@ -42,6 +46,12 @@ regexp:jd\.com\/(?!authadmin)
 ```
 sed -i "" 's/jad-/jadx-/g' `grep "jad-" -rl --exclude="**/*.spec.js" src/components/Cascader/**/*`
 grep "-123px" -rn src/**/* --exclude 'src/assets/common2.0'
+```
+
+```
+find **/* -name "element-icons.ttf"
+find src/**/* -name "*.stories.js" | sort -u
+find ../crm_fe -name "*.d.ts" ! -path "*/node_modules/*"
 ```
 
 ### 排除某些文件后删除
@@ -175,11 +185,6 @@ nvim +PlugInstall
 - `Ctrl + S`: 在上下新分割页中打开
 - `Ctrl + V`: 在左右新分割页中打开
 
-```
-find **/* -name "element-icons.ttf"
-find src/**/* -name "*.stories.js" | sort -u
-```
-
 ### 搜索替换
 
 > http://vimregex.com/
@@ -309,6 +314,10 @@ In visual mode:
 
 - `:edit FILEPAT`
 
+### 查看完整的 lsp 错误提示
+
+- `:LspDiagLine`
+
 ---
 
 ## 4. Git
@@ -376,6 +385,15 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 ### 按时间筛选 log
 
 - git log --since="Wed Jan 8 20:03:47 2020 +0800" src/_.md src/v3/\*\*/_
+
+### 修改上次 commit message
+
+- git commit --amend
+
+### reset 后恢复
+
+- git reflog 查看 hash
+- 再次 reset --hard
 
 ---
 
