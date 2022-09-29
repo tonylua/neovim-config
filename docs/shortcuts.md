@@ -330,6 +330,9 @@ In visual mode:
 
 - NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
 - npm config set registry https://registry.npmmirror.com
+- 或 npm config set registry https://registry.npm.taobao.org/
+- npm config rm registry
+- npm config set electron_mirror "https://npm.taobao.org/mirrors/electron/"
 
 ### git 暂存
 
@@ -378,9 +381,14 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 
 - `git remote -v` 或 `git remote show origin`
 
-### 查看已经删除的文件历史
+### 查看并恢复已删除的文件
 
-- git log --all -- <路径>
+```
+git log --diff-filter=D --summary | grep delete
+git log --all -- <FILE>
+git shwo <COMMIT> -- <FILE>
+git checkout <COMMIT>^ -- <FILE>
+```
 
 ### 按时间筛选 log
 
@@ -390,7 +398,7 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 
 - git commit --amend
 
-### reset 后恢复
+### reset/rebase 后恢复
 
 - git reflog 查看 hash
 - 再次 reset --hard
