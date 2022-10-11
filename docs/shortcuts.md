@@ -169,6 +169,11 @@ nvim +PlugInstall
 - `s`: 在左右分割页中打开
 - `gs`: 同上，但焦点留在文件树
 
+### 预览定义
+
+- 在变量等处直接输入 gpd
+  https://github.com/rmagatti/goto-preview
+
 ### 分割页切换和集成终端：
 
 - `Ctrl + N`: 打开终端，多页签切换到终端时需要用 i 和 ESC 切换其输入状态
@@ -262,6 +267,10 @@ nvim +PlugInstall
 
 - Ctrl + w，R 向上/向左
 - Ctrl + w，r 向下/向右
+
+### 挪动 tab
+
+- :tabm n
 
 ### 在两个并排 split 窗口比对 diff
 

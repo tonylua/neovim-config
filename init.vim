@@ -7,6 +7,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/nvim-cmp'
+  Plug 'rmagatti/goto-preview'
   Plug 'jose-elias-alvarez/null-ls.nvim'
   Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
   Plug 'nvim-lua/plenary.nvim'
@@ -20,6 +21,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'tomtom/tcomment_vim'
   Plug 'psliwka/vim-smoothie'
   Plug 'zivyangll/git-blame.vim'
+  Plug 'rmagatti/goto-preview'
   Plug 'heavenshell/vim-jsdoc', { 
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
   \ 'do': 'make install'
@@ -29,11 +31,18 @@ call plug#end()
 
 lua require("lsp-config")
 
+lua require('goto-preview').setup {}
+nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
+nnoremap gpt <cmd>lua require('goto-preview').goto_preview_type_definition()<CR>
+nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
+nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
+
 " 自动保存session
 fu! SaveSess()
     execute 'mksession! ' . getcwd() . '/.session.vim'
 endfunction
 autocmd VimLeave * call SaveSess()
+
 
 " git blame
 nnoremap <Leader>g:<C-u>call gitblame#echo()<CR>
@@ -43,7 +52,7 @@ let g:python_host_prog  = '/usr/bin/python'
 let g:loaded_python3_provider = 0
 
 "coc插件
-let g:coc_global_extensions = ['coc-vetur', 'coc-eslint', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+let g:coc_global_extensions = ['coc-vetur', 'coc-eslint', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', '@yaegassy/coc-tailwindcss3']
 
 set guifont=DroidSansMono_Nerd_Font:h14
 
