@@ -132,6 +132,10 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 
 - Option-Shift-B
 
+### 找到应用位置
+
+- which nvim
+
 ---
 
 ## 3. NeoVim
@@ -171,8 +175,12 @@ nvim +PlugInstall
 
 ### 预览定义
 
-- 在变量等处直接输入 gpd
-  https://github.com/rmagatti/goto-preview
+> https://github.com/rmagatti/goto-preview
+
+在变量等处直接输入:
+
+- 预览 gpd
+- 跳转 gd  
 
 ### 分割页切换和集成终端：
 
