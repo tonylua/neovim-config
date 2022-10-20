@@ -350,6 +350,7 @@ In visual mode:
 - 或 npm config set registry https://registry.npm.taobao.org/
 - npm config rm registry
 - npm config set electron_mirror "https://npm.taobao.org/mirrors/electron/"
+- yarn config set registry https://registry.npm.taobao.org/
 
 ### git 暂存
 
