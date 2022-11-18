@@ -24,23 +24,16 @@ call plug#begin("~/.vim/plugged")
   Plug 'zivyangll/git-blame.vim'
   Plug 'rmagatti/goto-preview'
   Plug 'ap/vim-css-color'
+  Plug 'voldikss/vim-translator'
   Plug 'heavenshell/vim-jsdoc', { 
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
   \ 'do': 'make install'
   \}
-  " TODO: https://zhuanlan.zhihu.com/p/445331508
-  " Plug 'hrsh7th/cmp-path'
-  " Plug 'hrsh7th/cmp-cmdline'
-  " Plug 'hrsh7th/cmp-vsnip'
-  " Plug 'hrsh7th/vim-vsnip'
-  " Plug 'rafamadriz/friendly-snippets'
-  " Plug 'onsails/lspkind-nvim'
 call plug#end()
 
 let g:loaded_perl_provider = 0 
-" let g:python3_host_prog = '/usr/bin/python3';
-" let g:python_host_prog  = '/usr/bin/python'
-" let g:loaded_python3_provider = 0
+
+let g:translator_default_engines = ['youdao', 'bing', 'haici']
 
 lua require("lsp-config")
 
@@ -73,18 +66,7 @@ let g:coc_global_extensions = [
       \ 'coc-tag', 
       \ '@yaegassy/coc-tailwindcss3'
 \ ]
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()

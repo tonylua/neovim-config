@@ -136,6 +136,12 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 
 - which nvim
 
+### 模拟tree
+
+```
+find <PATH> -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
 ---
 
 ## 3. NeoVim
@@ -173,6 +179,10 @@ nvim +PlugInstall
 - `s`: 在左右分割页中打开
 - `gs`: 同上，但焦点留在文件树
 
+### 查看当前文件路径
+
+- ctrl+G
+
 ### 预览定义
 
 > https://github.com/rmagatti/goto-preview
@@ -181,6 +191,11 @@ nvim +PlugInstall
 
 - 预览 gpd
 - 跳转 gd  
+- 关闭所有预览 gP
+
+### 补全光标处模块的import
+
+- ga
 
 ### 分割页切换和集成终端：
 
@@ -420,6 +435,41 @@ git checkout <COMMIT>^ -- <FILE>
 
 - git reflog 查看 hash
 - 再次 reset --hard
+
+### 统计代码量
+
+```
+git log --shortstat --since="1 year ago" --until="now" \
+  | grep "files changed\|Author\|Merge:" \
+  | awk '{ \
+    if ($1 == "Author:") {\
+      currentUser = $2;\
+    }\
+    if ($2 == "files") {\
+      files[currentUser]+=$1;\
+      inserted[currentUser]+=$4;\
+      deleted[currentUser]+=$6;\
+    }\
+  } END {\
+    for (i in files) {\
+      print i ":", "files changed:", files[i], "lines inserted:", inserted[i], "lines deleted:", deleted[i];\
+    }\
+  }'
+```
+
+### 打印TODO清单
+
+> https://medium.com/pragmatic-programmers/git-config-core-pager-807e17d64243
+
+先设置 git paper (默认为 less):
+
+```
+git config --global core.pager "cat"
+```
+
+```
+grep "TODO" -rn src/**/* | uniq | awk -F : '{ print "\n" $1 " [" $2 "行]" }; { system("git blame -L " $2 "," $2 " " $1) }' > todo-list.txt
+```
 
 ---
 
