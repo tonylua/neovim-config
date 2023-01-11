@@ -25,6 +25,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'rmagatti/goto-preview'
   Plug 'ap/vim-css-color'
   Plug 'voldikss/vim-translator'
+  Plug 'wfxr/protobuf.vim'
   Plug 'heavenshell/vim-jsdoc', { 
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
   \ 'do': 'make install'

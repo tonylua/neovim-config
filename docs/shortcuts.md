@@ -243,6 +243,14 @@ nvim +PlugInstall
 /buckets\":\s\[\(\n\_[^\[]\{-}\)\]
 ```
 
+### 非捕获分组
+
+- `\%\(xxx\)`
+
+### Negative/Positive Lookahead
+
+- `\(\n\)\@!` or `\(\n\)\@=`
+
 ### 批量复制搜索结果
 
 - :g/PATTERN/yank A
@@ -275,6 +283,11 @@ nvim +PlugInstall
 
 - `gg=G`
 - 如果要指定缩紧几个空格，先运行 :set shiftwidth=2
+
+### 跳转到历史文档
+
+- CTRL-O 退后
+- CTRL-I 向前
 
 ### 跳转到指定行
 
@@ -357,16 +370,6 @@ In visual mode:
 ### git clone 加速
 
 - 将 github.com 换为 github.com.cnpmjs.org 即可实现加速
-
-### nvm/npm 加速
-
-- NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
-- npm config set registry https://registry.npmmirror.com
-- 或 npm config set registry https://registry.npm.taobao.org/
-- npm config rm registry
-- npm config set electron_mirror "https://npm.taobao.org/mirrors/electron/"
-- yarn config set registry https://registry.npm.taobao.org/
-
 ### git 暂存
 
 - git stash
@@ -505,7 +508,23 @@ grep "TODO" -rn src/**/* | uniq | awk -F : '{ print "\n" $1 " [" $2 "行]" }; { 
 - ps -ef | grep nginx
 - kill -QUIT 主进程（master）号
 
+---
+
 ## 6. npm
+
+### nvm/npm 加速
+
+- NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node
+- npm config set registry https://registry.npmmirror.com
+- 或 npm config set registry https://registry.npm.taobao.org/
+- npm config rm registry
+- npm config set electron_mirror "https://npm.taobao.org/mirrors/electron/"
+- yarn config set registry https://registry.npm.taobao.org/
+- pnpm config set registry https://registry.npm.taobao.org
+
+### 解决peer失败
+
+- pnpm config set auto-install-peers true
 
 ### npm 发布
 
@@ -545,9 +564,15 @@ nvm alias default 10
 npm view xxx versions
 ```
 
+### 查看某种已安装的包
+
+```
+npm ls | grep storybook
+```
+
 ---
 
-## 6. mongodb
+## 7. mongodb
 
 ### 命令行连接到数据库
 
