@@ -26,6 +26,7 @@ call plug#begin("~/.vim/plugged")
   Plug 'ap/vim-css-color'
   Plug 'voldikss/vim-translator'
   Plug 'wfxr/protobuf.vim'
+  Plug 'tpope/vim-surround'
   Plug 'heavenshell/vim-jsdoc', { 
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
   \ 'do': 'make install'
@@ -49,7 +50,19 @@ fu! SaveSess()
     execute 'mksession! ' . getcwd() . '/.session.vim'
 endfunction
 autocmd VimLeave * call SaveSess()
-
+" fu! RestoreSess()
+" if filereadable(getcwd() . '/.session.vim')
+"     execute 'so ' . getcwd() . '/.session.vim'
+"     if bufexists(1)
+"         for l in range(1, bufnr('$'))
+"             if bufwinnr(l) == -1
+"                 exec 'sbuffer ' . l
+"             endif
+"         endfor
+"     endif
+" endif
+" endfunction
+" autocmd VimEnter * nested call RestoreSess()
 
 " git blame
 nnoremap <Leader>g:<C-u>call gitblame#echo()<CR>
@@ -141,3 +154,4 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 "配置Prettier
 let g:prettier#config#print_width = 100
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+

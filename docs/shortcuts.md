@@ -14,6 +14,10 @@ regexp:jd\.com\/(?!authadmin)
 
 ## 2. 终端
 
+### 用 vim 编辑命令
+
+- 在终端某条命令上连续按 ctrl+X ctrl+E
+
 ### 调出 emoji 表情选择
 
 - control + command + space
@@ -259,6 +263,15 @@ nvim +PlugInstall
 
 - `:noh`
 
+### 环绕引号等
+
+> https://zhuanlan.zhihu.com/p/158604935
+
+常规模式下：
+
+- 单词： `ysiw"` `ysiwt<span>`
+- 整行： `yss"` `ysst<li>`
+
 ### 大小写转化
 
 > 先用 v 选中
@@ -394,6 +407,8 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 - 本地 `git branch -d <分支>`
 - 远端 `git push origin --delete <分支>`
 
+- 如删除失败则 `git fetch --prune origin` 后 `git branch -r` 再看
+
 ### 添加删除 remote url
 
 - `git remote set-url --add origin <git>`
@@ -412,6 +427,8 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 ### 打 tag
 
 - git tag -a v1.4 -m "my version 1.4"
+- git tag -d v1.4 // 删除
+- git push origin v1.4
 
 ### 查看仓库信息
 
@@ -429,6 +446,7 @@ git checkout <COMMIT>^ -- <FILE>
 ### 按时间筛选 log
 
 - git log --since="Wed Jan 8 20:03:47 2020 +0800" src/_.md src/v3/\*\*/_
+- git log --author xxx --graph --after 2022-12-30 --before 2022-12-31
 
 ### 修改上次 commit message
 
@@ -471,7 +489,8 @@ git config --global core.pager "cat"
 ```
 
 ```
-grep "TODO" -rn src/**/* | uniq | awk -F : '{ print "\n" $1 " [" $2 "行]" }; { system("git blame -L " $2 "," $2 " " $1) }' > todo-list.txt
+grep "TODO" -rn src/**/* --exclude="src/out/**/*" | uniq | awk -F : 'BEGIN{count=0}; {count++}; { print "\n" $1 " [" $2 "行]" }; { system("git blame -L " $2 "," $2 " " $1) } END{print "\n总共 " count " 项"}' > todo-list.txt
+
 ```
 
 ---
@@ -521,6 +540,22 @@ grep "TODO" -rn src/**/* | uniq | awk -F : '{ print "\n" $1 " [" $2 "行]" }; { 
 - npm config set electron_mirror "https://npm.taobao.org/mirrors/electron/"
 - yarn config set registry https://registry.npm.taobao.org/
 - pnpm config set registry https://registry.npm.taobao.org
+
+### 部分包加速(存疑)
+
+> https://www.runjf.com/nodejs/npm-add-binary-mirror
+
+- `npm view sqlite3 binary` 获取 module_name，如 node_sqlite3
+- `pnpm config set <module_name>_binary_host_mirror https://npm.taobao.org/mirrors`
+
+### 如果运行时 sqlite3 报错
+
+- 尝试运行如下命令覆盖
+- 注意命令中的版本等信息，或许要根据 _本机规格_ 或 _依赖版本_ 找到[镜像版本列表](https://registry.npmmirror.com/binary.html?path=sqlite3/)手动调整
+
+```bash
+curl https://cdn.npmmirror.com/binaries/sqlite3/v5.1.4/napi-v6-darwin-unknown-arm64.tar.gz | tar -zx -C ./node_modules/.pnpm/sqlite3@5.1.4/node_modules/sqlite3/lib/binding/
+```
 
 ### 解决peer失败
 
