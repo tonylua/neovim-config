@@ -334,7 +334,11 @@ nvim +PlugInstall
 
 ### 书签
 
-> https://www.yiibai.com/vim/vim_markers.html
+> https://www.yiibai.com/vim/vim_markers.
+
+- m{bookmark-name} 然后 	"`{bookmark-name}"
+- 列出所有 :marks
+- :delmarks {bookmark-name}
 
 ### 处理 git 冲突
 
@@ -383,10 +387,15 @@ In visual mode:
 ### git clone 加速
 
 - 将 github.com 换为 github.com.cnpmjs.org 即可实现加速
+
 ### git 暂存
 
 - git stash
 - git stash pop
+
+### raw.githubusercontent.com 找不到
+
+- 替换成 raw.fastgit.org 或 raw.staticdn.net
 
 ### 查看某次 commit 并排除文件
 
