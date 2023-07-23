@@ -53,4 +53,4 @@ null_ls.setup({
     },
     on_attach = on_attach,
 })
-
+require('lspconfig').tailwindcss.setup {}

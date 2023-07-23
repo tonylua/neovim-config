@@ -312,6 +312,11 @@ nvim +PlugInstall
 
 - 在非 insert 状态下按 q 键
 
+### 新建 split 窗口
+
+- :new / :vnew
+- :split / :vsplit (打卡当前文件)
+
 ### 挪动 split 窗口位置
 
 - Ctrl + w，R 向上/向左
@@ -396,6 +401,10 @@ In visual mode:
 ### raw.githubusercontent.com 找不到
 
 - 替换成 raw.fastgit.org 或 raw.staticdn.net
+
+### Warning: Remote Host Identification Has Changed
+
+- `nvim ~/.ssh/known_hosts` 删除对应的
 
 ### 查看某次 commit 并排除文件
 

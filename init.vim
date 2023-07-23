@@ -1,3 +1,7 @@
+" 手动执行：
+" npm install -g @tailwindcss/language-server
+"
+
 call plug#begin("~/.vim/plugged")
   let g:plug_url_format = 'git@github.com:%s.git'
   Plug 'dracula/vim'
@@ -77,8 +81,7 @@ let g:coc_global_extensions = [
       \ 'coc-json', 
       \ 'coc-prettier', 
       \ 'coc-tsserver', 
-      \ 'coc-tag', 
-      \ '@yaegassy/coc-tailwindcss3'
+      \ 'coc-tag'
 \ ]
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " Make <CR> auto-select the first completion item and notify coc.nvim to
