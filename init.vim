@@ -5,7 +5,7 @@
 call plug#begin("~/.vim/plugged")
   let g:plug_url_format = 'git@github.com:%s.git'
   Plug 'dracula/vim'
-  Plug 'posva/vim-vue'
+  " Plug 'posva/vim-vue'
   Plug 'sheerun/vim-polyglot'
   Plug 'neovim/nvim-lspconfig'
   Plug 'kabouzeid/nvim-lspinstall'
@@ -26,7 +26,6 @@ call plug#begin("~/.vim/plugged")
   Plug 'tomtom/tcomment_vim'
   Plug 'psliwka/vim-smoothie'
   Plug 'zivyangll/git-blame.vim'
-  Plug 'rmagatti/goto-preview'
   Plug 'ap/vim-css-color'
   Plug 'voldikss/vim-translator'
   Plug 'wfxr/protobuf.vim'
@@ -41,6 +40,11 @@ let g:loaded_perl_provider = 0
 
 let g:translator_default_engines = ['youdao', 'bing', 'haici']
 
+" " npm install -g vls
+" let g:LanguageClient_serverCommands = {
+"     \ 'vue': ['vls']
+"     \ }
+
 lua require("lsp-config")
 
 lua require('goto-preview').setup {}
@@ -48,6 +52,7 @@ nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
 nnoremap gpt <cmd>lua require('goto-preview').goto_preview_type_definition()<CR>
 nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
 nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
+nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
 
 " 自动保存session
 fu! SaveSess()

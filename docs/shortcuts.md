@@ -46,6 +46,7 @@ regexp:jd\.com\/(?!authadmin)
 - grep '正则内容' -rn（或 -rl） src/\*_/_ | sort | uniq
 - sed -i 's/查找字段/替换字段/g' `grep "deletable" -rl src/**/* | sort | uniq`
 - 排除用 `--exclude` 或 `--exclude-dir`
+- `grep -l "pattern" file1 file2 file3` 只显示路径
 
 ```
 sed -i "" 's/jad-/jadx-/g' `grep "jad-" -rl --exclude="**/*.spec.js" src/components/Cascader/**/*`
@@ -77,10 +78,14 @@ find ../crm_fe -name "*.d.ts" ! -path "*/node_modules/*"
 
 - `lsof -i:端口号`
 
-### 打包配置
+### 打包
 
 ```
 zip -vr my_config.zip ~/.config/ -x "*.DS_Store" -x '*node_modules*'
+```
+
+```
+tar -zcvf 打包后生成的文件名全路径 要打包的目录
 ```
 
 ### 刷新 dns
@@ -469,6 +474,8 @@ git checkout <COMMIT>^ -- <FILE>
 ### 修改上次 commit message
 
 - git commit --amend
+
+或者 `git rebase -i` 后将对应 commit 改为 r 后保存退出，在新的窗口中修改
 
 ### reset/rebase 后恢复
 
