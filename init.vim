@@ -78,7 +78,7 @@ nnoremap <Leader>g:<C-u>call gitblame#echo()<CR>
 
 "coc插件 https://juejin.cn/post/6968807773366976549
 let g:coc_global_extensions = [
-      \ 'coc-vetur', 
+      \ '@yaegassy/coc-volar', 
       \ 'coc-eslint', 
       \ 'coc-emmet', 
       \ 'coc-css', 

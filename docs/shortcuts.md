@@ -14,6 +14,10 @@ regexp:jd\.com\/(?!authadmin)
 
 ## 2. 终端
 
+### 改变目录下所有层级的权限
+
+- chmod -R 777 ~/.fzf
+
 ### 用 vim 编辑命令
 
 - 在终端某条命令上连续按 ctrl+X ctrl+E
@@ -85,7 +89,15 @@ zip -vr my_config.zip ~/.config/ -x "*.DS_Store" -x '*node_modules*'
 ```
 
 ```
-tar -zcvf 打包后生成的文件名全路径 要打包的目录
+tar -czvf 打包后生成的文件名全路径 要打包的目录
+```
+
+### 解压
+
+```
+unzip yourfile.zip -d /path/to/destination
+
+tar -xzvf yourfile.tar.gz -C /path/to/destination
 ```
 
 ### 刷新 dns
@@ -144,6 +156,10 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 ### 找到应用位置
 
 - which nvim
+
+### 查看软连接指向
+
+- ln -l 软链接
 
 ### 模拟tree
 
@@ -564,6 +580,7 @@ grep "TODO" -rn src/**/* --exclude="src/out/**/*" | uniq | awk -F : 'BEGIN{count
 - npm config rm registry
 - npm config set electron_mirror "https://npm.taobao.org/mirrors/electron/"
 - yarn config set registry https://registry.npm.taobao.org/
+- yarn config get registry
 - pnpm config set registry https://registry.npm.taobao.org
 
 ### 部分包加速(存疑)
@@ -591,6 +608,7 @@ curl https://cdn.npmmirror.com/binaries/sqlite3/v5.1.4/napi-v6-darwin-unknown-ar
 - npm login 或 npm adduser 登录
 - npm version x.x.x 或手动改 package.json
 - npm publish
+  + 发布以@开头命名的包，首次发布必须要带参数: `--access public`
 - npm home [name] 打开项目主页查看
 
 ### npm 使用本地包调试

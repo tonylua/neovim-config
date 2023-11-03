@@ -25,5 +25,5 @@
   "typescript.validate.enable": false,
   "coc.preferences.diagnostic.virtualText": true,
   "prettier.disableLanguages": [],
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave":false 
 }
