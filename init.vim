@@ -184,19 +184,4 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " vim-airline 配置
 let g:airline#extensions#ale#enabled = 1 " 在状态栏显示 ALE 检查结果
 
-lua require("rust-plug")
-" Mason Setup
-lua require("mason").setup({
-\     ui = {
-\         icons = {
-\             package_installed = "",
-\             package_pending = "",
-\             package_uninstalled = "",
-\         },
-\     },
-\     registries = {
-\       "github:mason-org/mason-registry@2023-05-15-next-towel"
-\     },
-\ })
-lua require("mason-lspconfig").setup()
-
+lua require("rust-init")
