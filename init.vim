@@ -5,7 +5,10 @@
 call plug#begin("~/.vim/plugged")
   let g:plug_url_format = 'git@github.com:%s.git'
   Plug 'dracula/vim'
-  " Plug 'posva/vim-vue'
+  Plug 'rust-lang/rust.vim'
+  Plug 'dense-analysis/ale'
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'vim-airline/vim-airline'
   Plug 'sheerun/vim-polyglot'
   Plug 'neovim/nvim-lspconfig'
   Plug 'kabouzeid/nvim-lspinstall'
@@ -163,3 +166,20 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let g:prettier#config#print_width = 100
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+
+syntax enable
+filetype plugin indent on
+" rust.vim 配置 https://juejin.cn/post/7250005852710797371
+let g:rustfmt_autosave = 1 " 保存时自动格式化
+let g:rustfmt_command = "rustfmt" " 自定义格式化命令
+let g:rust_clip_command = 'pbcopy'
+" ALE 配置
+let g:ale_linters = {
+\  'rust': ['cargo', 'clippy']
+\ }
+let g:ale_fixers = {
+\  'rust': ['cargo', 'rustfmt']
+\ }
+let g:ale_rust_cargo_use_clippy = 1 " 使用 clippy 进行更严格的检查
+" vim-airline 配置
+let g:airline#extensions#ale#enabled = 1 " 在状态栏显示 ALE 检查结果

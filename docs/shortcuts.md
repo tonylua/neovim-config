@@ -14,6 +14,12 @@ regexp:jd\.com\/(?!authadmin)
 
 ## 2. 终端
 
+### 有些下载的 dmg 需要先移除 quarantine，将其拖入终端，接在以下命令后面：
+
+```
+sudo xattr -r -d com.apple.quarantine 
+```
+
 ### 改变目录下所有层级的权限
 
 - chmod -R 777 ~/.fzf
@@ -25,6 +31,12 @@ regexp:jd\.com\/(?!authadmin)
 ### 调出 emoji 表情选择
 
 - control + command + space
+
+### 输入拼音音调
+
+- 中文输入状态
+- 输入一个元音
+- option + tab 按几次就是几声
 
 ### finder 显示隐藏文件
 
@@ -49,12 +61,13 @@ regexp:jd\.com\/(?!authadmin)
 - sed -i "s/查找字段/替换字段/gi" `grep 查找字段 -rl 路径`
 - grep '正则内容' -rn（或 -rl） src/\*_/_ | sort | uniq
 - sed -i 's/查找字段/替换字段/g' `grep "deletable" -rl src/**/* | sort | uniq`
-- 排除用 `--exclude` 或 `--exclude-dir`
+- 排除用 `--exclude` 或 `--exclude-dir`，如 `grep --exclude-dir=node_modules -rn 'no-rem' .`
 - `grep -l "pattern" file1 file2 file3` 只显示路径
 
 ```
 sed -i "" 's/jad-/jadx-/g' `grep "jad-" -rl --exclude="**/*.spec.js" src/components/Cascader/**/*`
 grep "-123px" -rn src/**/* --exclude 'src/assets/common2.0'
+grep -R --exclude-dir=node_modules "CopyPlugin" ./**/*
 ```
 
 ```
@@ -68,6 +81,14 @@ find ../crm_fe -name "*.d.ts" ! -path "*/node_modules/*"
 - find src/views/Reports/create/\* -type 'f' | grep -v 'index.vue' | xargs rm
 - find . -type 'd' | grep -v "NameToExclude" | xargs rmdir
 
+### 排除某些文件后拷贝
+
+- rsync -av --progress sourcefolder /destinationfolder --exclude dir1 --exclude dir2
+
+### 排除某些文件后移动
+
+- mv $(ls | egrep -v '(libs|app1-vue3-webpack5)') app1-vue3-webpack5
+
 ### 统计文件个数
 
 - ls -l dir/\*.js | wc -l
@@ -78,7 +99,7 @@ find ../crm_fe -name "*.d.ts" ! -path "*/node_modules/*"
 - c 可读
 - h 总数,不带的话结果除 2
 
-### 查看占用端口
+### 查看占用
 
 - `lsof -i:端口号`
 
@@ -117,6 +138,10 @@ defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 ```
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
 ```
+
+### chrome 插件位置
+
+~/Library/Application Support/Google/Chrome/Default/Extensions
 
 ### 逐级查看磁盘占用空间情况
 
@@ -166,6 +191,10 @@ rm -rf ~/Movies/DaVinci\ Resolve/CacheClip/*
 ```
 find <PATH> -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
+
+### 拷贝目录
+
+cp -r a/b/ c/bCopy/
 
 ---
 
@@ -221,6 +250,10 @@ nvim +PlugInstall
 ### 补全光标处模块的import
 
 - ga
+
+### 找到匹配的括号等
+
+- %
 
 ### 分割页切换和集成终端：
 
@@ -423,9 +456,36 @@ In visual mode:
 
 - 替换成 raw.fastgit.org 或 raw.staticdn.net
 
+### Failed to connect to github.com port 443
+
+- 打开 https://github.com.ipaddress.com/  查看ip
+- /etc/hosts 里 140.82.112.3 github.com
+
+### 报错： HTTP/2 stream 1 was not closed ...
+
+- git config --global http.version HTTP/1.1
+
 ### Warning: Remote Host Identification Has Changed
 
 - `nvim ~/.ssh/known_hosts` 删除对应的
+
+### 只克隆Git仓库中的子目录
+
+方法1
+
+git clone --filter=blob:none --no-checkout --depth 1 --sparse <project-url>
+cd <project>
+git sparse-checkout add <folder1> <folder2>
+rm .gitignore
+git checkout
+
+方法2 - 会下载大量不可见的文件：
+
+- git init
+- git remote add -f origin <repository-url>
+- git config core.sparsecheckout true
+- echo "<subdirectory-path>" >> .git/info/sparse-checkout （每行可以配置一个文件或目录）
+- git pull --depth=1 origin master  （第一次之后可以不加 origin master ）
 
 ### 查看某次 commit 并排除文件
 
@@ -490,8 +550,8 @@ git checkout <COMMIT>^ -- <FILE>
 ### 修改上次 commit message
 
 - git commit --amend
-
-或者 `git rebase -i` 后将对应 commit 改为 r 后保存退出，在新的窗口中修改
+- 或者 `git rebase -i` 后将对应 commit 改为 r 后保存退出，在新的窗口中修改
+- git config --global core.editor "vim"
 
 ### reset/rebase 后恢复
 
@@ -582,6 +642,9 @@ grep "TODO" -rn src/**/* --exclude="src/out/**/*" | uniq | awk -F : 'BEGIN{count
 - yarn config set registry https://registry.npm.taobao.org/
 - yarn config get registry
 - pnpm config set registry https://registry.npm.taobao.org
+- pnpm config list
+- pnpm config delete @jd:registry
+- npm config set strict-ssl false
 
 ### 部分包加速(存疑)
 
