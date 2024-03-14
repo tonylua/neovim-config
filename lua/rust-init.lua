@@ -1,3 +1,7 @@
+-- https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/
+-- https://github.com/wbthomason/packer.nvim
+-- https://github.com/williamboman/mason.nvim/issues/1300
+
 require("rust-plug")
 -- Mason Setup
 require("mason").setup({
