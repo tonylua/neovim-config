@@ -196,6 +196,14 @@ find <PATH> -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 cp -r a/b/ c/bCopy/
 
+### 下载youtube
+
+- pip 安装 yt-dlp 
+- 查看分辨率列表等 `yt-dlp -F URL`
+- 指定分辨率下载 `yt-dlp -f 数字代码 URL`
+- 指定输出模版 `yt-dlp -o "%(title)s.%(ext)s" URL`
+- 断点续传 `-c`
+
 ---
 
 ## 3. NeoVim
@@ -305,9 +313,19 @@ nvim +PlugInstall
 
 - `\%\(xxx\)`
 
+### 替换捕获到的部分
+
+```
+:%s/\v\.ant-form-control(:{0,2}\S+)?/.ant-input\1,&/g   
+```
+
 ### Negative/Positive Lookahead
 
 - `\(\n\)\@!` or `\(\n\)\@=`
+
+### 删除空行
+
+- `:g/^$/d`
 
 ### 批量复制搜索结果
 
@@ -443,9 +461,22 @@ In visual mode:
 
 ## 4. Git
 
-### git clone 加速
+### git clone 
 
-- 将 github.com 换为 github.com.cnpmjs.org 即可实现加速
+- 加速：将 github.com 换为 github.com.cnpmjs.org 即可实现加速
+
+- 特定版本： git clone -b BRANCH --depth 1 git@github.com:XXX.git
+
+- 仓库过大报错 fetch-pack: unexpected disconnect while reading sideband packet
+```
+git config --global http.postBuffer 524288000
+git config --global http.version HTTP/1.1
+git config --global core.compression 0
+# 如果网络环境不太好，可以通过增加下面的参数，降低失败率：
+git config --global http.lowSpeedLimit 0 
+git config --global http.lowSpeedTime 999999
+git config --global core.compression 0
+```
 
 ### git 暂存
 
@@ -734,4 +765,45 @@ db.getCollection('collectionXXX').find({key1: value1, ...})
 
 # 查找记录并过滤结果字段 1 包含，0 排除
 db.getCollection('collectionXXX').find({}, {col1: 1, col2: 1})
+```
+
+---
+
+## 8. Python
+
+### 安装特定版本
+
+```
+wget https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tar.xz
+tar -xf Python-3.7.17.tar.xz
+cd Python-3.7.17
+./configure --enable-optimizations --with-lto --prefix=/usr/bin/python3.7.17
+make -j 4 # cpu核数
+sudo make altinstall
+sudo ln -sf /usr/bin/python3.7.17/bin/python3.7 /usr/bin/
+
+python3.7 -V
+```
+
+### 临时修改 /tmp 容量（pip install 等）
+
+mount -o remount,size=2G /tmp
+
+### pip 查看软件版本
+
+pip index versions xxx
+
+### pip 加速
+
+pip install XXX -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+### 虚拟环境
+
+```
+创建：
+python -m venv XXX
+特定版本创建：
+python3.7 -m venv XXX
+激活：
+source XXX/bin/activate
 ```
