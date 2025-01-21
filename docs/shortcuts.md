@@ -53,6 +53,10 @@ sudo xattr -r -d com.apple.quarantine
 - `&:` 确认并退出整个窗口
 - 方向键：切换子窗口
 
+调整大小：
+
+- tmux resize-pane -[U|D|L|R] [10]
+
 ### 搜索替换
 
 > https://alexharv074.github.io/2019/04/16/a-sed-tutorial-and-reference.html#command-line-options
