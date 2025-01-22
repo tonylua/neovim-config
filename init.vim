@@ -3,7 +3,10 @@
 "
 
 call plug#begin("~/.vim/plugged")
-  let g:plug_url_format = 'git@github.com:%s.git'
+  if !has("win64")
+    let g:plug_url_format = 'git@github.com:%s.git'
+  endif
+
   Plug 'dracula/vim'
   " Plug 'rust-lang/rust.vim'
   " Plug 'dense-analysis/ale'
@@ -98,7 +101,9 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " 字体
-set guifont=DroidSansMono_Nerd_Font:h14
+if !has("win64")
+  set guifont=DroidSansMono_Nerd_Font:h14
+endif
 
 "高亮当前行
 set cursorline
