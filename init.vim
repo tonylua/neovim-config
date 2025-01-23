@@ -8,9 +8,6 @@ call plug#begin("~/.vim/plugged")
   endif
 
   Plug 'dracula/vim'
-  " Plug 'rust-lang/rust.vim'
-  " Plug 'dense-analysis/ale'
-  " Plug 'prabirshrestha/vim-lsp'
   Plug 'vim-airline/vim-airline'
   Plug 'sheerun/vim-polyglot'
   Plug 'neovim/nvim-lspconfig'
@@ -40,16 +37,14 @@ call plug#begin("~/.vim/plugged")
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
   \ 'do': 'make install'
   \}
+  Plug 'nomnivore/ollama.nvim'
 call plug#end()
+
+lua require("ollama-config")
 
 let g:loaded_perl_provider = 0 
 
 let g:translator_default_engines = ['youdao', 'bing', 'haici']
-
-" " npm install -g vls
-" let g:LanguageClient_serverCommands = {
-"     \ 'vue': ['vls']
-"     \ }
 
 lua require("lsp-config")
 
@@ -194,3 +189,4 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 let g:airline#extensions#ale#enabled = 1 " 在状态栏显示 ALE 检查结果
 
 lua require("rust-init")
+
