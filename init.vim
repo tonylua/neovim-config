@@ -1,3 +1,12 @@
+" 手动执行：
+" PlugInstall
+" PackerInstall
+" npm install -g typescript 
+" npm install -g typescript-language-server 
+" npm install -g eslint 
+" npm install -g prettier
+" npm install -g @tailwindcss/language-server
+
 call plug#begin("~/.vim/plugged")
   if !has("win64")
     let g:plug_url_format = 'git@github.com:%s.git'
@@ -38,19 +47,6 @@ call plug#end()
 
 let g:loaded_perl_provider = 0 
 let g:translator_default_engines = ['youdao', 'bing', 'haici']
-
-" 自动安装全局npm依赖
-function! IsNpmPackageInstalled(package_name)
-    let output = system("npm list -g --depth=0 | grep '" . a:package_name . "'")
-    return strlen(output) > 0
-endfunction
-let g:language_servers = ['typescript-language-server', '@tailwindcss/language-server']
-for server in g:language_servers
-    if !IsNpmPackageInstalled(server)
-        echo "Installing " . server . "..."
-        silent execute "!npm install -g " . server
-    endif
-endfor
 
 " 自动保存session
 fu! SaveSess()
