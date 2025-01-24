@@ -1,7 +1,3 @@
-" 手动执行：
-" npm install -g @tailwindcss/language-server
-"
-
 call plug#begin("~/.vim/plugged")
   if !has("win64")
     let g:plug_url_format = 'git@github.com:%s.git'
@@ -40,20 +36,21 @@ call plug#begin("~/.vim/plugged")
   Plug 'nomnivore/ollama.nvim'
 call plug#end()
 
-lua require("ollama-config")
-
 let g:loaded_perl_provider = 0 
-
 let g:translator_default_engines = ['youdao', 'bing', 'haici']
 
-lua require("lsp-config")
-
-lua require('goto-preview').setup {}
-nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
-nnoremap gpt <cmd>lua require('goto-preview').goto_preview_type_definition()<CR>
-nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
-nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
-nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
+" 自动安装全局npm依赖
+function! IsNpmPackageInstalled(package_name)
+    let output = system("npm list -g --depth=0 | grep '" . a:package_name . "'")
+    return strlen(output) > 0
+endfunction
+let g:language_servers = ['typescript-language-server', '@tailwindcss/language-server']
+for server in g:language_servers
+    if !IsNpmPackageInstalled(server)
+        echo "Installing " . server . "..."
+        silent execute "!npm install -g " . server
+    endif
+endfor
 
 " 自动保存session
 fu! SaveSess()
@@ -170,23 +167,19 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let g:prettier#config#print_width = 100
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-
-" syntax enable
-" filetype plugin indent on
-" " rust.vim 配置 https://juejin.cn/post/7250005852710797371
-" let g:rustfmt_autosave = 1 " 保存时自动格式化
-" let g:rustfmt_command = "rustfmt" " 自定义格式化命令
-" let g:rust_clip_command = 'pbcopy'
-" " ALE 配置
-" let g:ale_linters = {
-" \  'rust': ['cargo', 'clippy']
-" \ }
-" let g:ale_fixers = {
-" \  'rust': ['cargo', 'rustfmt']
-" \ }
-" let g:ale_rust_cargo_use_clippy = 1 " 使用 clippy 进行更严格的检查
 " vim-airline 配置
 let g:airline#extensions#ale#enabled = 1 " 在状态栏显示 ALE 检查结果
 
+lua require("ollama-config")
+
+lua require("lsp-config")
+
 lua require("rust-init")
+
+lua require('goto-preview').setup {}
+nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
+nnoremap gpt <cmd>lua require('goto-preview').goto_preview_type_definition()<CR>
+nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
+nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
+nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
 
