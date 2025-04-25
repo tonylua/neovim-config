@@ -17,7 +17,7 @@ regexp:jd\.com\/(?!authadmin)
 ### 有些下载的 dmg 需要先移除 quarantine，将其拖入终端，接在以下命令后面：
 
 ```
-sudo xattr -r -d com.apple.quarantine 
+sudo xattr -r -d com.apple.quarantine
 ```
 
 ### 改变目录下所有层级的权限
@@ -202,7 +202,7 @@ cp -r a/b/ c/bCopy/
 
 ### 下载youtube
 
-- pip 安装 yt-dlp 
+- pip 安装 yt-dlp
 - 查看分辨率列表等 `yt-dlp -F URL`
 - 指定分辨率下载 `yt-dlp -f 数字代码 URL`
 - 指定输出模版 `yt-dlp -o "%(title)s.%(ext)s" URL`
@@ -256,7 +256,7 @@ nvim +PlugInstall
 在变量等处直接输入:
 
 - 预览 gpd
-- 跳转 gd  
+- 跳转 gd
 - 关闭所有预览 gP
 
 ### 补全光标处模块的import
@@ -313,6 +313,12 @@ nvim +PlugInstall
 /buckets\":\s\[\(\n\_[^\[]\{-}\)\]
 ```
 
+- 在指定目录中递归搜索内容
+
+```
+:Rag <搜索词> <目录>
+```
+
 ### 非捕获分组
 
 - `\%\(xxx\)`
@@ -320,7 +326,7 @@ nvim +PlugInstall
 ### 替换捕获到的部分
 
 ```
-:%s/\v\.ant-form-control(:{0,2}\S+)?/.ant-input\1,&/g   
+:%s/\v\.ant-form-control(:{0,2}\S+)?/.ant-input\1,&/g
 ```
 
 ### Negative/Positive Lookahead
@@ -417,7 +423,7 @@ nvim +PlugInstall
 
 > https://www.yiibai.com/vim/vim_markers.
 
-- m{bookmark-name} 然后 	"`{bookmark-name}"
+- m{bookmark-name} 然后 "`{bookmark-name}"
 - 列出所有 :marks
 - :delmarks {bookmark-name}
 
@@ -465,19 +471,20 @@ In visual mode:
 
 ## 4. Git
 
-### git clone 
+### git clone
 
 - 加速：将 github.com 换为 github.com.cnpmjs.org 即可实现加速
 
 - 特定版本： git clone -b BRANCH --depth 1 git@github.com:XXX.git
 
 - 仓库过大报错 fetch-pack: unexpected disconnect while reading sideband packet
+
 ```
 git config --global http.postBuffer 524288000
 git config --global http.version HTTP/1.1
 git config --global core.compression 0
 # 如果网络环境不太好，可以通过增加下面的参数，降低失败率：
-git config --global http.lowSpeedLimit 0 
+git config --global http.lowSpeedLimit 0
 git config --global http.lowSpeedTime 999999
 git config --global core.compression 0
 ```
@@ -493,7 +500,7 @@ git config --global core.compression 0
 
 ### Failed to connect to github.com port 443
 
-- 打开 https://github.com.ipaddress.com/  查看ip
+- 打开 https://github.com.ipaddress.com/ 查看ip
 - /etc/hosts 里 140.82.112.3 github.com
 
 ### 报错： HTTP/2 stream 1 was not closed ...
@@ -520,7 +527,7 @@ git checkout
 - git remote add -f origin <repository-url>
 - git config core.sparsecheckout true
 - echo "<subdirectory-path>" >> .git/info/sparse-checkout （每行可以配置一个文件或目录）
-- git pull --depth=1 origin master  （第一次之后可以不加 origin master ）
+- git pull --depth=1 origin master （第一次之后可以不加 origin master ）
 
 ### 查看某次 commit 并排除文件
 
@@ -706,7 +713,7 @@ curl https://cdn.npmmirror.com/binaries/sqlite3/v5.1.4/napi-v6-darwin-unknown-ar
 - npm login 或 npm adduser 登录
 - npm version x.x.x 或手动改 package.json
 - npm publish
-  + 发布以@开头命名的包，首次发布必须要带参数: `--access public`
+  - 发布以@开头命名的包，首次发布必须要带参数: `--access public`
 - npm home [name] 打开项目主页查看
 
 ### npm 使用本地包调试
@@ -811,3 +818,4 @@ python3.7 -m venv XXX
 激活：
 source XXX/bin/activate
 ```
+
