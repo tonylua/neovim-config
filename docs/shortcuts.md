@@ -208,6 +208,39 @@ cp -r a/b/ c/bCopy/
 - 指定输出模版 `yt-dlp -o "%(title)s.%(ext)s" URL`
 - 断点续传 `-c`
 
+### PS 查找程序路径
+
+```
+(Get-Command nvim).Path
+```
+
+### PS查找文件
+
+- `Get-ChildItem -Path "./" -Recurse -Filter "ainow.db" -File | Where-Object { $_.FullName -notmatch "\\dist\\?" }`
+
+### PS删除目录
+
+- `Remove-Item -LiteralPath "foldertodelete" -Force -Recurse`
+
+```删除所有node_modules
+Get-ChildItem -Recurse -Directory -Filter node_modules | Remove-Item -Recurse -Force
+```
+
+### 在 PowerShell 中，`grep -rn "some" ./**/*` 的等效实现
+
+```
+Get-ChildItem -Recurse | Select-String -Pattern "some" -List | Format-Table Path, LineNumber, Line -AutoSize
+```
+
+### V2rayn "运行Core失败"
+
+找出占用v2rayn端口的进程并kill:
+
+```
+netstat -ano | findstr ":10809"
+taskkill /PID 68008 /F
+```
+
 ---
 
 ## 3. NeoVim
@@ -467,6 +500,12 @@ In visual mode:
 
 - `:LspDiagLine`
 
+### 查看当前文件路径
+
+```
+:echo expand('%:p')
+```
+
 ---
 
 ## 4. Git
@@ -636,6 +675,12 @@ grep "TODO" -rn src/**/* --exclude="src/out/**/*" | uniq | awk -F : 'BEGIN{count
 
 ```
 
+### 清除git代理
+
+```
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
 ---
 
 ## 5. Nginx
@@ -645,16 +690,20 @@ grep "TODO" -rn src/**/* --exclude="src/out/**/*" | uniq | awk -F : 'BEGIN{count
 > https://nginx.viraptor.info/
 
 ```
-#匹配/node /info /search
- location ~* ^/(node|info|search)/ {
-     proxy_pass   http://localhost:8080;
- }
 
- #绝对匹配一个路径 /info
- #location ^~ /info/ {
- #    proxy_pass   http://localhost:8080;
- #}
-```
+#匹配/node /info /search
+location ~\* ^/(node|info|search)/ {
+proxy_pass http://localhost:8080;
+}
+
+#绝对匹配一个路径 /info
+#location ^~ /info/ {
+
+# proxy_pass http://localhost:8080;
+
+#}
+
+````
 
 ### 指定配置文件启动
 
@@ -702,7 +751,7 @@ grep "TODO" -rn src/**/* --exclude="src/out/**/*" | uniq | awk -F : 'BEGIN{count
 
 ```bash
 curl https://cdn.npmmirror.com/binaries/sqlite3/v5.1.4/napi-v6-darwin-unknown-arm64.tar.gz | tar -zx -C ./node_modules/.pnpm/sqlite3@5.1.4/node_modules/sqlite3/lib/binding/
-```
+````
 
 ### 解决peer失败
 
@@ -752,6 +801,47 @@ npm view xxx versions
 ```
 npm ls | grep storybook
 ```
+
+### pnpm 查看依赖关系
+
+```
+pnpm why xxx
+```
+
+### `pnpm i` 报错：`⨯ cannot execute  cause=fork/exec C:\Users\luanluan\AppData\Local\nvm\v20.18.2\node_modules\pnpm\bin\pnpm.cjs: %1…`
+
+- 打开报错中的 pnpm.cjs，[第一行改为 `#!node`](https://github.com/pnpm/pnpm/issues/5638#issuecomment-1327988206)
+
+### pnpm 清缓存
+
+```
+pnpm store prune
+```
+
+### prisma报错 `Error validating datasource `db`: the URL must start with the protocol `prisma://``
+
+- `rm -Recurse .\node_modules\.pnpm\@prisma+client@5.3.1_prisma@5.3.1\`
+- `pnpm i`
+
+### 查看nodejs目录等
+
+```
+npm config get prefix
+npm config get cache
+npm config ls
+```
+
+### 使用pnpm的patch命令打补丁
+
+- https://juejin.cn/post/7119369833187115039
+
+### 创建electron项目
+
+- `npx create-electron-app@latest my_electron_1 --template=vite`
+- 报错 `An unhandled rejection has occurred inside Forge...try installing again at getElectronPath`:
+  ```
+  node node_modules/electron/install.js
+  ```
 
 ---
 
@@ -819,3 +909,122 @@ python3.7 -m venv XXX
 source XXX/bin/activate
 ```
 
+### y2b venv 迁移到 uv
+
+- pipx install uv
+- pipx ensurepath
+- source ~/.zshrc
+- uv venv --python 3.12 .venv
+- source .venv/bin/activate
+- uv pip list
+- uv init
+- uv add -r requirements.txt && rm requirements.txt
+
+### uv 升级依赖
+
+```
+uv add "httpx>0.1.0" --upgrade-package httpx
+```
+
+---
+
+## 9. Rust
+
+### 查找某个包的版本
+
+```
+cargo search XXX
+```
+
+### 升级到 nightly
+
+```
+rustup default nightly; rustup update
+```
+
+---
+
+## 10. WSL
+
+### 改wsl主机名
+
+- `sudo hostnamectl set-hostname lenovoWSL`
+
+### WSL和Windows共享SSH私钥
+
+- https://juejin.cn/post/7202901118451941431
+
+### 安装curl
+
+- https://www.cnblogs.com/cobcmw/p/12616305.html
+
+### python别名
+
+- `sudo apt install python-is-python3`
+
+### 安装zsh
+
+- https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH
+
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+source .zshrc
+```
+
+### 安装nvm
+
+- https://idroot.us/install-nvm-debian-12/
+
+### raw.githubusercontent.com:443'
+
+- https://zhuanlan.zhihu.com/p/115450863
+
+### 安装neovim
+
+- <del>[安装neovim 0.7不兼容插件](https://github.com/neovim/neovim/wiki/Installing-Neovim/921fe8c40c34dd1f3fb35d5b48c484db1b8ae94b#debian)</del>
+  - sudo apt-get install apt-show-versions
+  - apt-show-versions -a neovim
+
+```
+sudo apt-get install wget
+wget https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.appimage
+chmod u+x nvim-linux-x86_64.appimage && ./nvim-linux-x86_64.appimage --appi
+mage-extract
+./squashfs-root/AppRun --version
+sudo mv squashfs-root /
+sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+```
+
+- 字体图标
+
+在 Terminal 的 debian 选项里更改字体
+
+<del>
+```
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/DroidSansMono.zip
+sudo apt-get install unzip
+unzip DroidSansMono.zip -d ~/.fonts
+fc-cache -fv
+```
+</del>
+
+- neovim 插件
+
+```
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+nvim +PlugInstall +qall
+
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+nvim +PackerInstall
+
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+sudo apt install silversearcher-ag
+```
+
+---
