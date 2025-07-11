@@ -594,6 +594,17 @@ git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/
 - `git remote set-url --add origin <git>`
 - `git remote set-url --delete origin <git>`
 
+#### 为每个仓库添加独立别名
+
+```
+git remote remove origin  # 完全删除 origin
+git remote add bitbucket git@bitbucket.org:tonylua/ainow-ui.git
+git remote add gitlab https://gitlab.xpaas.lenovo.com/scet/ainow-ui.git
+# 分别推送
+git push bitbucket edge/dev
+git push gitlab edge/dev
+```
+
 ### 从其它分支提取指定文件
 
 - git checkout [branch] -- [file name]
