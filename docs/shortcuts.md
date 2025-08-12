@@ -931,6 +931,12 @@ source XXX/bin/activate
 - uv init
 - uv add -r requirements.txt && rm requirements.txt
 
+### uv 安装依赖
+
+```
+uv pip install googletrans
+```
+
 ### uv 升级依赖
 
 ```

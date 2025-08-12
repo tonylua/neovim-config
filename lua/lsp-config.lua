@@ -1,6 +1,8 @@
 local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
 
+vim.lsp.set_log_level("off")
+
 local buf_map = function(bufnr, mode, lhs, rhs, opts)
     vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
         silent = true,
