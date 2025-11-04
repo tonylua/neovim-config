@@ -10,6 +10,13 @@
 regexp:jd\.com\/(?!authadmin)
 ```
 
+### gitlab MR页面隐藏无用记录
+
+```
+document.querySelectorAll('.fa-caret-down').forEach(a => a.click())
+Array.from(document.querySelectorAll('.diff-file')).filter(a => a.querySelector('small')?.innerText.includes('→ 0')).forEach(a => a.style.display = 'none')
+```
+
 ---
 
 ## 2. 终端
@@ -638,6 +645,10 @@ git checkout <COMMIT>^ -- <FILE>
 
 - git log --since="Wed Jan 8 20:03:47 2020 +0800" src/_.md src/v3/\*\*/_
 - git log --author xxx --graph --after 2022-12-30 --before 2022-12-31
+
+### 一周的 commit messages
+
+- git log --since="7 days ago" --oneline
 
 ### 修改上次 commit message
 
