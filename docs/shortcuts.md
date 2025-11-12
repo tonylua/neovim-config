@@ -585,6 +585,12 @@ git diff 12eefe9159f '@{2 days ago}' ':(exclude)package-lock.json' src/component
 git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/components/CustomReport/
 ```
 
+### 只查看某次 commit 的文件路径
+
+```
+git show --name-only <hash>
+```
+
 ### git 删除 untracked files
 
 - git clean -fd
@@ -649,6 +655,10 @@ git checkout <COMMIT>^ -- <FILE>
 ### 一周的 commit messages
 
 - git log --since="7 days ago" --oneline
+
+### 查看不包含 merge 的 log
+
+- git log --no-merges
 
 ### 修改上次 commit message
 
