@@ -180,3 +180,10 @@ nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
 nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
 nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
 
+" 针对 .iss 文件的自动配置
+augroup inno_setup
+    autocmd!
+    autocmd BufRead,BufNewFile *.iss setlocal fileencoding=cp936
+    autocmd BufRead,BufNewFile *.iss setlocal fileformat=unix
+    autocmd BufRead,BufNewFile *.iss setlocal nobomb
+augroup END

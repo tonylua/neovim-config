@@ -535,6 +535,18 @@ git config --global http.lowSpeedTime 999999
 git config --global core.compression 0
 ```
 
+### 寻找历史大文件
+
+```
+python -m pip install --user git-filter-repo
+# 验证
+git filter-repo --versions
+# 找出所有历史中存在的大文件（按大小排序）
+git filter-repo --analyze
+# 查看结果
+nvim .git\filter-repo\analysis\path-all-sizes.txt
+```
+
 ### git 暂存
 
 - git stash
@@ -574,6 +586,30 @@ git checkout
 - git config core.sparsecheckout true
 - echo "<subdirectory-path>" >> .git/info/sparse-checkout （每行可以配置一个文件或目录）
 - git pull --depth=1 origin master （第一次之后可以不加 origin master ）
+
+### submodule
+
+- 移除旧子模块
+  ```
+  git submodule deinit -f libs/electron37.2.4/electron
+  rm -R libs/electron37.2.4
+  git rm --cached libs/electron37.2.4/electron
+  ```
+- 添加新的子模块
+  ```
+  git submodule add https://xxx/electron37.10.3.git libs/electron37.10.3/electron
+  git submodule init
+  git submodule update
+  git add .gitmodules libs/electron37.10.3/electron
+  git commit -m "添加 electron 子模块到 libs/electron37.10.3/electron"
+  ```
+- 添加分支作为子模块
+  ```
+  git submodule add -b develop https://gitlab.xpaas.lenovo.com/scet/magi2-setup-ui.git .\libs\SetupUI
+  git submodule init
+  git submodule update
+  git submodule update --remote
+  ```
 
 ### 查看某次 commit 并排除文件
 
@@ -652,6 +688,10 @@ git checkout <COMMIT>^ -- <FILE>
 - git log --since="Wed Jan 8 20:03:47 2020 +0800" src/_.md src/v3/\*\*/_
 - git log --author xxx --graph --after 2022-12-30 --before 2022-12-31
 
+### 一天之内并显示内容
+
+- git log --author="xxx" --since="2025-12-22" --until="2025-12-23" --oneline --no-merges -p
+
 ### 一周的 commit messages
 
 - git log --since="7 days ago" --oneline
@@ -659,6 +699,14 @@ git checkout <COMMIT>^ -- <FILE>
 ### 查看不包含 merge 的 log
 
 - git log --no-merges
+
+### 某个区间内的提交，只显示标题
+
+- git log 9fe1b1980c..HEAD --pretty=format:%B
+
+### 某个时间点之前的那次提交
+
+- git log -1 --until="Tue Nov 11 18:41:28 2025 +0800"
 
 ### 修改上次 commit message
 
@@ -983,6 +1031,10 @@ rustup default nightly; rustup update
 ---
 
 ## 10. WSL
+
+### 重启
+
+- wsl --shutdown
 
 ### 改wsl主机名
 
