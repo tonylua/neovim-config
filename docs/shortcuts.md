@@ -271,6 +271,16 @@ nvim +PlugInstall
 :checkhealth
 ```
 
+### 升级插件
+
+```
+npm update -g typescript typescript-language-server eslint prettier @tailwindcss/language-server
+
+:PlugUpgrade
+:PlugUpdate
+:CocUpdate
+```
+
 ### 目录树：
 
 - `Ctrl + B`: 打开关闭文件树
@@ -331,6 +341,8 @@ nvim +PlugInstall
 - vim 中的非贪婪(non-greedy)模式，不用 `*` 而是 `\{-}`
 - vim uses `\_.` to include the newline character to the common `.`
 - 交互式替换: `:%s/old/new/gc` ，y 是 n 跳过 a 所有
+- `或`分支 `/ipcMain\.\(on\|handle\)('plugins\{-}`
+- 忽略大小写 `/\c...`
 
 例：匹配 buckets 数组部分
 
@@ -619,6 +631,12 @@ git diff --pretty <hash> ':(exclude)package-lock.json' ':(exclude)src/components
 git diff 12eefe9159f --author weimanqing ':(exclude)package-lock.json' src/components/CustomReport/ > _change.log
 git diff 12eefe9159f '@{2 days ago}' ':(exclude)package-lock.json' src/components/CustomReport/
 git diff 12eefe9159f '@{2021-10-22 00:00:00}' ':(exclude)package-lock.json' src/components/CustomReport/
+```
+
+### 一次性不翻页比较所有差别
+
+```
+git --no-pager diff bf5e964...9574588 > code_diff.txt
 ```
 
 ### 只查看某次 commit 的文件路径
