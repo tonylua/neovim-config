@@ -726,6 +726,10 @@ git checkout <COMMIT>^ -- <FILE>
 
 - git log -1 --until="Tue Nov 11 18:41:28 2025 +0800"
 
+### 按关键字查找分支上改动的所有merge/commits
+
+- git --no-pager log origin/dev-2.4 -i --grep="dark" -p -m > dark-commits.txt
+
 ### 修改上次 commit message
 
 - git commit --amend
