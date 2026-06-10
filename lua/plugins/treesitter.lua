@@ -4,14 +4,15 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "typescript", "tsx", "vue", "html", "css", "json", "javascript" },
-        auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-        indent = { enable = true },
+      vim.treesitter.language.register("typescript", "typescriptreact")
+      vim.treesitter.language.register("typescript", "javascript")
+      vim.treesitter.language.register("html", "vue")
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "lua", "typescript", "tsx", "vue", "html", "css", "json", "javascript" },
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
       })
     end,
   },

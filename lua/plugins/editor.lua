@@ -27,11 +27,19 @@ return {
     end,
   },
   {
-    "zivyangll/git-blame.vim",
-    cmd = "GitBlame",
-    keys = {
-      { "<Leader>g", ":<C-u>call gitblame#echo()<CR>", silent = true },
-    },
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("gitsigns").setup({
+        current_line_blame = false,
+      })
+      vim.api.nvim_create_user_command("GitBlame", function()
+        require("gitsigns").blame_line({ full = true })
+      end, {})
+      vim.keymap.set("n", "<Leader>g", function()
+        require("gitsigns").blame_line({ full = true })
+      end, { silent = true, desc = "Git blame line" })
+    end,
   },
   {
     "voldikss/vim-translator",
@@ -44,5 +52,12 @@ return {
   {
     "editorconfig/editorconfig-vim",
     event = { "BufReadPre", "BufNewFile" },
+  },
+  {
+    "brenoprata10/nvim-highlight-colors",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("nvim-highlight-colors").setup({})
+    end,
   },
 }

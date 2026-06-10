@@ -1,5 +1,8 @@
 local map = vim.keymap.set
 
+-- 文件树 (Ctrl-b)
+vim.cmd([[nnoremap <silent> <C-b> :NvimTreeToggle<CR>]])
+
 -- 窗口切换
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-j>", "<C-w>j")
@@ -23,9 +26,6 @@ local function open_terminal()
   vim.cmd("resize 10")
 end
 map("n", "<C-n>", open_terminal)
-
--- Git blame
-map("n", "<Leader>g", ":<C-u>call gitblame#echo()<CR>", { silent = true })
 
 -- 翻译
 vim.g.translator_default_engines = { "youdao", "bing", "haici" }

@@ -2,7 +2,7 @@ return {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    cmd = "ConformInfo",
+    cmd = { "ConformInfo", "Prettier" },
     config = function()
       require("conform").setup({
         formatters_by_ft = {

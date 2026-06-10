@@ -256,48 +256,50 @@ taskkill /PID 68008 /F
 
 > https://github.com/tonylua/neovim-config
 
-- `~/.config/nvim/init.vim`
-- `~/.config/nvim/coc-settings.json`
+- `~/.config/nvim/init.lua` (入口)
+- `~/.config/nvim/lua/config/` (选项、键位、自动命令、lazy.nvim)
+- `~/.config/nvim/lua/plugins/` (各插件配置)
+- Windows 实际路径: `~/AppData/Local/nvim/`
 - 在打开的某个文件中运行 `:echo &filetype` 确定当前文件类型
-- 如果更新了配置中支持的文件类型可能需要重新运行 `:CocInstall coc-XXX` 以升级扩展
 
-### 安装插件
-
-```
-nvim +PlugInstall
-
-安装后重启 nvim，检查安装结果
-
-:checkhealth
-```
-
-### 升级插件
+### 插件管理 (lazy.nvim)
 
 ```
-npm update -g typescript typescript-language-server eslint prettier @tailwindcss/language-server
+安装/同步插件:
+:Lazy sync
 
-:PlugUpgrade
-:PlugUpdate
-:CocUpdate
+更新插件:
+:Lazy update
+
+查看插件状态:
+:Lazy
+
+升级 LSP server:
+npm update -g typescript typescript-language-server @vue/language-server @tailwindcss/language-server vscode-langservers-extracted prettier
 ```
 
-### 目录树：
+### 目录树 (nvim-tree):
 
-- `Ctrl + B`: 打开关闭文件树
-- `o`: 在文件树中，上下选择文件后打开
-- `go`: 同上，但焦点留在文件树
-- `t`: 在新页签中打开
-- `T`: 同上，但焦点留在文件树
+- `Ctrl + B`: 打开/关闭文件树
+- 在文件树中:
+  - `回车` 或 `o`: 打开文件/展开目录
+  - `a`: 新建文件/目录 (目录名以 `/` 结尾)
+  - `d`: 删除
+  - `r`: 重命名
+  - `x`: 剪切
+  - `c`: 复制
+  - `p`: 粘贴
+  - `R`: 刷新
+  - `I`: 切换隐藏文件显示
+  - `H`: 切换 dotfiles 显示
+  - `q`: 关闭文件树
 - `g + t`: 到下一个页签
 - `g + T`: 到上一个页签
-- `i`: 在上下分割页中打开
-- `gi`: 同上，但焦点留在文件树
-- `s`: 在左右分割页中打开
-- `gs`: 同上，但焦点留在文件树
 
 ### 查看当前文件路径
 
 - ctrl+G
+- 或 `:echo expand('%:p')`
 
 ### 预览定义
 
@@ -305,39 +307,52 @@ npm update -g typescript typescript-language-server eslint prettier @tailwindcss
 
 在变量等处直接输入:
 
-- 预览 gpd
-- 跳转 gd
-- 关闭所有预览 gP
+- 预览定义 `gpd`
+- 预览类型定义 `gpt`
+- 预览实现 `gpi`
+- 预览引用 `gpr`
+- 关闭所有预览 `gP`
+- 跳转到定义 `gd`
 
-### 补全光标处模块的import
+### LSP 操作
 
-- ga
+- `gd`: 跳转到定义
+- `gr`: 重命名
+- `gy`: 跳转到类型定义
+- `K`: 悬浮文档
+- `ga`: 代码操作 (code action)
+- `[a` / `]a`: 上/下一个诊断
+- `<Leader>a`: 当前行诊断浮窗
+- `Ctrl+x Ctrl+x` (插入模式): 签名帮助
 
 ### 找到匹配的括号等
 
 - %
 
-### 分割页切换和集成终端：
+### 分割页切换和集成终端:
 
-- `Ctrl + N`: 打开终端，多页签切换到终端时需要用 i 和 ESC 切换其输入状态
-- `Alt + h\j\k\l`: 在文件树和分割页间切换焦点
+- `Ctrl + N`: 打开终端 (PowerShell/bash)，多页签切换到终端时需要用 i 和 ESC 切换其输入状态
+- `Ctrl + h/j/k/l`: 在文件树和分割页间切换焦点 (normal 和 terminal 模式均可)
 - `:res+行数`: 改变分割页的尺寸
 - `:vertical resize 列数`: 改变竖向分割页尺寸
 - `:quitall`: 多个 tab 时一次性退出 vim
 
-### 文件搜索：
+### 文件搜索 (Telescope):
 
-- `Ctrl + P`: 打开搜索页签，搜索并选中目录
-- 回车：在当前激活的窗口打开选中目录
-- `Ctrl + T`: 在新页签中打开
-- `Ctrl + S`: 在上下新分割页中打开
-- `Ctrl + V`: 在左右新分割页中打开
+- `Ctrl + P`: 打开文件搜索
+- 在 Telescope 结果中:
+  - `回车`: 在当前窗口打开
+  - `Ctrl + x`: 在上下分割页中打开
+  - `Ctrl + v`: 在左右分割页中打开
+  - `Ctrl + t`: 在新页签中打开
+  - `Esc`: 关闭搜索
 
 ### 搜索替换
 
 > http://vimregex.com/
 
-- `:Ag 文本内容`: 搜索项目内包含文本内容的文件，快捷键同文件搜索
+- `:Ag 文本内容`: 搜索项目内包含文本内容的文件 (基于 ripgrep)
+- `:Rag 文本内容`: 同上
 - vim 中的非贪婪(non-greedy)模式，不用 `*` 而是 `\{-}`
 - vim uses `\_.` to include the newline character to the common `.`
 - 交互式替换: `:%s/old/new/gc` ，y 是 n 跳过 a 所有
@@ -363,12 +378,6 @@ npm update -g typescript typescript-language-server eslint prettier @tailwindcss
 
 # 防止 buckets 数组嵌套
 /buckets\":\s\[\(\n\_[^\[]\{-}\)\]
-```
-
-- 在指定目录中递归搜索内容
-
-```
-:Rag <搜索词> <目录>
 ```
 
 ### 非捕获分组
@@ -397,14 +406,26 @@ npm update -g typescript typescript-language-server eslint prettier @tailwindcss
 
 - `:noh`
 
-### 环绕引号等
+### 环绕引号等 (nvim-surround)
 
-> https://zhuanlan.zhihu.com/p/158604935
+> https://github.com/kylechui/nvim-surround
 
 常规模式下：
 
-- 单词： `ysiw"` `ysiwt<span>`
-- 整行： `yss"` `ysst<li>`
+- 添加: `ys{motion}{char}` 如 `ysiw"` `ysiw)`
+- 添加整行: `yss{char}` 如 `yss"`
+- 添加 HTML 标签: `ysiw<tag>` 如 `ysiwt` 然后输入标签名
+- 删除: `ds{char}` 如 `ds"` `ds)`
+- 修改: `cs{old}{new}` 如 `cs"'` `cs)]`
+
+可视模式下:
+
+- 选中后 `S{char}`
+
+### 格式化
+
+- `:Prettier`: 手动格式化当前文件
+- 保存时自动格式化 (已配置，.iss 文件除外)
 
 ### 大小写转化
 
@@ -449,7 +470,7 @@ npm update -g typescript typescript-language-server eslint prettier @tailwindcss
 ### 新建 split 窗口
 
 - :new / :vnew
-- :split / :vsplit (打卡当前文件)
+- :split / :vsplit (打开当前文件)
 
 ### 挪动 split 窗口位置
 
@@ -499,31 +520,31 @@ git config --global mergetool.vimdiff.path nvim
 
 - nvim -d file1 file2
 
-### 基于 tcomment_vim 的注释
+### 注释 (Comment.nvim)
 
 In normal mode:
 
-- gc{motion} 指定方向，motion 即 hjkl 和 ↑（向上的行）↓（向下的行）
-- gc<Count>c{motion} 指定数量的
-- gcc 当前行
+- `gc{motion}` 指定方向，motion 即 j（向下的行）k（向上的行）等
+- `gc<Count>j` 注释当前行及下方 Count 行
+- `gcc` 当前行
 
 In visual mode:
 
-- gc
+- `gc`
 
 ### 打开文件
 
-- `:edit FILEPAT`
+- `:edit FILEPATH`
 
-### 查看完整的 lsp 错误提示
+### Git Blame
 
-- `:LspDiagLine`
+- `<Leader>g`: 显示当前行的 git blame 信息
 
-### 查看当前文件路径
+### 翻译
 
-```
-:echo expand('%:p')
-```
+- `<Leader>t`: 翻译光标下的单词
+- `:Translate`: 翻译
+- `:TranslateW`: 翻译并显示在浮窗
 
 ---
 
