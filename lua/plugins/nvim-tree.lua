@@ -11,6 +11,9 @@ return {
           dotfiles = false,
           custom = { "node_modules", ".vscode" },
         },
+        filesystem_watchers = {
+          ignore_dirs = { ".husky", "node_modules", ".git" },
+        },
         renderer = { icons = { show = { git = false, folder = true, file = true } } },
       })
       vim.keymap.set("n", "<leader>b", "<cmd>NvimTreeToggle<CR>", { silent = true, noremap = true })
