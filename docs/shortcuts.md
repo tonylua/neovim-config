@@ -760,6 +760,7 @@ git checkout <COMMIT>^ -- <FILE>
 ### 按关键字查找分支上改动的所有merge/commits
 
 - git --no-pager log origin/dev-2.4 -i --grep="dark" -p -m > dark-commits.txt
+- `[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; git --no-pager log --all --after="2026-04-30" -i --grep="a11y\|对比度\|可达\|无障碍" -p | Out-File -Encoding utf8 git_a11y_diff.txt`
 
 ### 修改上次 commit message
 

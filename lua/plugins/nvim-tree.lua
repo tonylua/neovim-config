@@ -7,6 +7,10 @@ return {
       require("nvim-tree").setup({
         view = { width = 30 },
         git = { enable = false },
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+        },
         filters = {
           dotfiles = false,
           custom = { "node_modules", ".vscode" },
