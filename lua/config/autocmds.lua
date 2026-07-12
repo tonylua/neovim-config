@@ -21,6 +21,17 @@ autocmd("BufEnter", {
   end,
 })
 
+-- 主题会硬编码开启真彩色(如 dracula),这里在每次应用主题后按终端能力再纠正一次
+augroup("TrueColorFix", { clear = true })
+autocmd("ColorScheme", {
+  group = "TrueColorFix",
+  callback = function()
+    if _G.apply_termguicolors then
+      _G.apply_termguicolors()
+    end
+  end,
+})
+
 -- .iss 文件编码
 augroup("InnoSetup", { clear = true })
 autocmd({ "BufRead", "BufNewFile" }, {
