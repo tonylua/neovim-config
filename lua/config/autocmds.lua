@@ -1,12 +1,40 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
--- 自动保存 session
+-- 是否正在退出：退出流程中要跳过 startinsert，否则关窗时焦点扫过 terminal
+-- 会触发 startinsert 去等子进程输入，与退出销毁互等，导致 :qa 假死。
+local quitting = false
+
+-- 退出前的收尾：标记退出中，并主动结束所有 terminal job，
+-- 避免 nvim 卡在 TUI 拆卸阶段等待子进程。
+augroup("QuitCleanup", { clear = true })
+autocmd("ExitPre", {
+  group = "QuitCleanup",
+  callback = function()
+    quitting = true
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      local ok, chan = pcall(function()
+        return vim.api.nvim_buf_get_var(buf, "terminal_job_id")
+      end)
+      if ok and chan then
+        pcall(vim.fn.jobstop, chan)
+      end
+    end
+  end,
+})
+
+-- 自动保存 session（terminal 窗口在场时 mksession 可能抛错，用 pcall 兜底；
+-- 并排除 terminal，避免恢复时残留死窗口）
 augroup("SaveSession", { clear = true })
 autocmd("VimLeave", {
   group = "SaveSession",
   callback = function()
-    vim.cmd("mksession! " .. vim.fn.getcwd() .. "/.session.vim")
+    local saved = vim.o.sessionoptions
+    vim.o.sessionoptions = saved:gsub(",?terminal", "")
+    pcall(function()
+      vim.cmd("mksession! " .. vim.fn.fnameescape(vim.fn.getcwd() .. "/.session.vim"))
+    end)
+    vim.o.sessionoptions = saved
   end,
 })
 
@@ -15,6 +43,9 @@ augroup("TermInsert", { clear = true })
 autocmd("BufEnter", {
   group = "TermInsert",
   callback = function()
+    if quitting then
+      return
+    end
     if vim.bo.buftype == "terminal" then
       vim.cmd("startinsert")
     end
