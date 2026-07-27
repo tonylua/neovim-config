@@ -14,8 +14,22 @@ return {
         capabilities = capabilities,
       })
 
+      -- @vue/typescript-plugin 随全局 @vue/language-server 一起安装，
+      -- ts_ls 加载它后才能解析 .vue 文件里的 TS 符号（gd / gy / hover 等）
+      local vue_ts_plugin = "C:/nvm4w/nodejs/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
+
       vim.lsp.config("ts_ls", {
-        filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+        -- 加上 vue：ts_ls 需 attach 到 .vue buffer 才能跨文件跳转定义
+        filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
+        init_options = {
+          plugins = {
+            {
+              name = "@vue/typescript-plugin",
+              location = vue_ts_plugin,
+              languages = { "vue" },
+            },
+          },
+        },
       })
 
       vim.lsp.config("vue_ls", {

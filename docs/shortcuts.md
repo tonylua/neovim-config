@@ -794,6 +794,16 @@ git log --shortstat --since="1 year ago" --until="now" \
   }'
 ```
 
+有日均变更行数、近 1 个月、排除 merge、过滤 0 变更:
+
+```powershell
+$u=@{};$raw=git log --no-merges --since="1 month ago" --shortstat --pretty='%at|%an';$ca=$null;$cts=$null;$raw|%{$ln=$_;if($ln-match'^(\d+)\|(.+)'){$cts=[long]$matches[1];$ca=$matches[2].Trim();if(!$u[$ca]){$u[$ca]=@{cc=0;ft=$null;f=0;i=0;d=0}}$u[$ca].cc++;if($null -eq $u[$ca].ft -or $cts -lt $u[$ca].ft){$u[$ca].ft=$cts}}elseif($ln-match'(\d+) files changed, (\d+) insertions\(\+\), (\d+) deletions\(-\)' -and $ca){$u[$ca].f+=[int]$matches[1];$u[$ca].i+=[int]$matches[2];$u[$ca].d+=[int]$matches[3]}};$nowTs=[DateTimeOffset]::Now.ToUnixTimeSeconds();$u.GetEnumerator()|%{$k=$_.Key;$v=$_.Value;$totalLine=$v.i+$v.d;if($totalLine -eq 0){return};if($null -eq $v.ft){[PSCustomObject]@{用户名=$k;非merge提交数=$v.cc;有效提交天数="无有效日期";日均变更行数="-";修改文件总数=$v.f;总变更行数=$totalLine};return};$daySec=86400;$days=($nowTs-$v.ft)/$daySec;$avgLine=[math]::Round($totalLine/$days,2);$dr=[math]::Round($days,1);[PSCustomObject]@{用户名=$k;非merge提交数=$v.cc;有效提交天数=$dr;日均变更行数=$avgLine;修改文件总数=$v.f;总变更行数=$totalLine}}|Format-Table -AutoSize
+```
+
+```bash
+git log --no-merges --since="1 month ago" --shortstat --pretty='%at|%an' | awk -F'|' '{ts=$1;u=$2;cc[u]++;if(!ft[u]||ts<ft[u])ft[u]=ts}NR==FNR{next}/(\d+) files changed/{f[cu]+=$1;i[cu]+=$4;d[cu]+=$6}/^[0-9]+\|/{cu=$2}BEGIN{printf "%-22s %10s %12s %12s %14s %12s\n","用户名","非merge提交数","有效提交天数","日均变更行数","修改文件总数","总变更行数"}END{nt=systime();ds=86400;for(u in cc){total=i[u]+d[u];if(total==0)continue;if(!ft[u]){printf "%-22s %10d %12s %12s %14d %12d\n",u,cc[u],"无有效日期","-",f[u],total;continue};dd=(nt-ft[u])/ds;avl=total/dd;printf "%-22s %10d %12.1f %12.2f %14d %12d\n",u,cc[u],dd,avl,f[u],total}}' <(git log --no-merges --since="1 month ago" --shortstat --pretty='%at|%an') <(git log --no-merges --since="1 month ago" --shortstat)
+```
+
 ### 打印TODO清单
 
 > https://medium.com/pragmatic-programmers/git-config-core-pager-807e17d64243
