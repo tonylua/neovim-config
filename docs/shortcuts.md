@@ -773,6 +773,22 @@ git checkout <COMMIT>^ -- <FILE>
 - git reflog 查看 hash
 - 再次 reset --hard
 
+### 统计某个文件都被谁改过几次
+
+```
+# PowerShell
+git log --follow --format='%an <%ae>' ".\apps\desktop\src\main\WidgetsCenter.ts" | Sort-Object | Group-Object | Select Count,Name | Sort Count -Desc
+
+# bash
+git log --follow --format='%an <%ae>' ".\apps\desktop\src\main\WidgetsCenter.ts" | Sort-Object | Group-Object | Select Count,Name | Sort Count -Desc
+```
+
+### 统计涉及某几个文件的所有提交
+
+```powershell
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8;git log origin/dev-2.5 --follow --no-merges --format="%at|%an <%ae> | %s" -- ".\apps\desktop\src\renderer\src\views\WidgetsCenter.vue" > tmp_log1.tmp;git log origin/dev-2.5 --follow --no-merges --format="%at|%an <%ae> | %s" -- ".\apps\desktop\src\main\WidgetsCenter.ts" > tmp_log2.tmp;Get-Content tmp_log1.tmp, tmp_log2.tmp | Sort-Object {[long]($_.Split('|')[0])} -Descending | Select-Object -Unique | ForEach-Object { $_.Split('|',2)[1] } | Out-File widgetscenter-commits-0727.txt -Encoding UTF8;Remove-Item tmp_log1.tmp, tmp_log2.tmp
+```
+
 ### 统计代码量
 
 ```
