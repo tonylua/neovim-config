@@ -63,14 +63,14 @@ autocmd("ColorScheme", {
   end,
 })
 
--- .iss 文件编码
+-- .iss 文件编码：仓库统一 UTF-8 带 BOM（Inno Setup 靠 BOM 识别 Unicode，无 BOM 会按 ANSI 读中文注释导致乱码），LF 行尾
 augroup("InnoSetup", { clear = true })
 autocmd({ "BufRead", "BufNewFile" }, {
   group = "InnoSetup",
   pattern = "*.iss",
   callback = function()
-    vim.bo.fileencoding = "cp936"
+    vim.bo.fileencoding = "utf-8"
     vim.bo.fileformat = "unix"
-    vim.bo.bomb = false
+    vim.bo.bomb = true
   end,
 })
