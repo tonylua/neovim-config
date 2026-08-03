@@ -65,8 +65,8 @@ autocmd("ColorScheme", {
 
 -- .iss 文件编码：仓库统一 UTF-8 带 BOM（Inno Setup 靠 BOM 识别 Unicode，无 BOM 会按 ANSI 读中文注释导致乱码），LF 行尾
 augroup("InnoSetup", { clear = true })
--- 读入后 / 新建时：确保写回时保持 UTF-8 + BOM + LF（即使文件原本无 BOM，保存时也会补上）
-autocmd({ "BufReadPost", "BufNewFile" }, {
+-- 保存前：强制 UTF-8 + BOM + LF（BufReadPost 里设 bomb 会被插件懒加载重读冲掉，只有写前设才可靠）
+autocmd("BufWritePre", {
   group = "InnoSetup",
   pattern = "*.iss",
   callback = function()
