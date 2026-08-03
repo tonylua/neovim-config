@@ -7,9 +7,21 @@ return {
     },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
+      local actions = require("telescope.actions")
       require("telescope").setup({
         defaults = {
           file_ignore_patterns = { "node_modules", ".git/" },
+          mappings = {
+            -- <C-v> 在 Windows 终端会被当成粘贴，改用 <C-s> 左右分割打开
+            i = {
+              ["<C-s>"] = actions.select_vertical,
+              ["<C-v>"] = false,
+            },
+            n = {
+              ["<C-s>"] = actions.select_vertical,
+              ["<C-v>"] = false,
+            },
+          },
         },
         pickers = {
           find_files = { hidden = true },
