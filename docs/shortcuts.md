@@ -298,7 +298,9 @@ npm update -g typescript typescript-language-server @vue/language-server @tailwi
   - `H`: 切换 dotfiles 显示
   - `-`: 上一级目录
   - `<C-]>`: 进入光标所在目录 (cd)
-  - `<C-v>` / `<C-x>` / `<C-t>`: 在左右分割 / 上下分割 / 新页签中打开
+  - `<C-s>` 或 `s`: 在左右分割的子窗口中打开 (与 Telescope 统一；原 `<C-v>` 在终端会被当成粘贴，已停用)
+  - `<C-x>` 或 `i`: 在上下分割的子窗口中打开
+  - `<C-t>`: 在新页签中打开
   - `W` / `E`: 折叠所有 / 展开所有
   - `g?`: 显示完整快捷键帮助
   - `q`: 关闭文件树
@@ -353,7 +355,7 @@ npm update -g typescript typescript-language-server @vue/language-server @tailwi
 - 在 Telescope 结果中:
   - `回车`: 在当前窗口打开
   - `Ctrl + x`: 在上下分割页中打开
-  - `Ctrl + v`: 在左右分割页中打开
+  - `Ctrl + s`: 在左右分割页中打开 (原 `Ctrl + v` 在终端会被当成粘贴，已停用)
   - `Ctrl + t`: 在新页签中打开
   - `Esc`: 关闭搜索
 

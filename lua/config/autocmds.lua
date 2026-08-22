@@ -65,7 +65,17 @@ autocmd("ColorScheme", {
 
 -- .iss 文件编码：仓库统一 UTF-8 带 BOM（Inno Setup 靠 BOM 识别 Unicode，无 BOM 会按 ANSI 读中文注释导致乱码），LF 行尾
 augroup("InnoSetup", { clear = true })
-autocmd({ "BufRead", "BufNewFile" }, {
+-- .iss 注释格式：commentstring 默认为空，导致 gc/gcc 注释无效；Inno Setup 用 ; 注释
+autocmd("FileType", {
+  group = "InnoSetup",
+  pattern = "iss",
+  callback = function()
+    vim.bo.commentstring = "; %s"
+  end,
+})
+
+-- 保存前：强制 UTF-8 + BOM + LF（BufReadPost 里设 bomb 会被插件懒加载重读冲掉，只有写前设才可靠）
+autocmd("BufWritePre", {
   group = "InnoSetup",
   pattern = "*.iss",
   callback = function()
@@ -73,4 +83,43 @@ autocmd({ "BufRead", "BufNewFile" }, {
     vim.bo.fileformat = "unix"
     vim.bo.bomb = true
   end,
+})
+
+-- .vue 区域感知注释：无 treesitter 时，内置 gc 只读整文件 commentstring(vue = <!-- -->)，
+-- 不知道 <script> 里是 JS。这里按光标所在 SFC 区块动态切换 commentstring。
+-- 纯 Lua,零依赖:内置 gc 在执行时才取 commentstring,区块对则注释符对。
+local function vue_comment_region()
+  local cur = vim.api.nvim_win_get_cursor(0)[1]
+  local lines = vim.api.nvim_buf_get_lines(0, 0, cur, false)
+  local region = "template" -- 顶层默认按模板/html 处理
+  for i = #lines, 1, -1 do
+    local l = lines[i]
+    if l:match("^%s*<script[%s>/-]") or l:match("^%s*<script$") then
+      region = "script"
+      break
+    elseif l:match("^%s*<style[%s>/-]") or l:match("^%s*<style$") then
+      region = "style"
+      break
+    elseif l:match("^%s*<template[%s>/-]") or l:match("^%s*<template$") then
+      region = "template"
+      break
+    elseif l:match("^%s*</script") or l:match("^%s*</style") or l:match("^%s*</template") then
+      -- 光标在闭合标签之后,说明已离开该块,继续向上找所属块
+      region = "template"
+      break
+    end
+  end
+  local cms = {
+    script = "// %s",
+    style = "/* %s */",
+    template = "<!-- %s -->",
+  }
+  vim.bo.commentstring = cms[region]
+end
+
+augroup("VueCommentRegion", { clear = true })
+autocmd({ "CursorMoved", "CursorMovedI", "BufEnter" }, {
+  group = "VueCommentRegion",
+  pattern = "*.vue",
+  callback = vue_comment_region,
 })
