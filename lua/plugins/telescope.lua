@@ -28,10 +28,20 @@ return {
         },
       })
       vim.api.nvim_create_user_command("Ag", function(opts)
-        require("telescope.builtin").live_grep({ default_text = opts.args })
+        require("telescope.builtin").live_grep({
+          default_text = opts.args,
+          additional_args = function()
+            return { "--hidden", "--no-ignore-vcs" }
+          end,
+        })
       end, { nargs = "?" })
       vim.api.nvim_create_user_command("Rag", function(opts)
-        require("telescope.builtin").live_grep({ default_text = opts.args })
+        require("telescope.builtin").live_grep({
+          default_text = opts.args,
+          additional_args = function()
+            return { "--hidden", "--no-ignore-vcs" }
+          end,
+        })
       end, { nargs = "?" })
     end,
   },
