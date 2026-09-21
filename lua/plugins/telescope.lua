@@ -10,7 +10,19 @@ return {
       local actions = require("telescope.actions")
       require("telescope").setup({
         defaults = {
-          file_ignore_patterns = { "node_modules", ".git/" },
+          file_ignore_patterns = {
+            "node_modules",
+            ".git/",
+            "dist/",
+            "out/",
+            "build/",
+            "target/",
+            ".cache/",
+            ".next/",
+            ".nuxt/",
+            ".output/",
+            "vendor/",
+          },
           mappings = {
             -- <C-v> 在 Windows 终端会被当成粘贴，改用 <C-s> 左右分割打开
             i = {
@@ -31,7 +43,7 @@ return {
         require("telescope.builtin").live_grep({
           default_text = opts.args,
           additional_args = function()
-            return { "--hidden", "--no-ignore-vcs" }
+            return { "--hidden" }
           end,
         })
       end, { nargs = "?" })
@@ -39,7 +51,7 @@ return {
         require("telescope.builtin").live_grep({
           default_text = opts.args,
           additional_args = function()
-            return { "--hidden", "--no-ignore-vcs" }
+            return { "--hidden" }
           end,
         })
       end, { nargs = "?" })
