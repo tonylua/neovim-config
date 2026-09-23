@@ -770,6 +770,11 @@ git checkout <COMMIT>^ -- <FILE>
 - 或者 `git rebase -i` 后将对应 commit 改为 r 后保存退出，在新的窗口中修改
 - git config --global core.editor "vim"
 
+### 设置了钩子后跳过类型检查
+
+- git commit --no-verify -am "fix: ci..."   # 完成 merge commit，跳过 pre-merge-commit hook
+- git push --no-verify                      # 推送到远程，跳过 pre-push hook
+
 ### reset/rebase 后恢复
 
 - git reflog 查看 hash
